@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.generator.mapper.BackgroundStoreOperateLogMapper" >
+  <resultMap id="BaseResultMap" type="com.generator.entry.BackgroundStoreOperateLog" >
+    <id column="operate_id" property="operateId" jdbcType="INTEGER" />
+    <result column="operate_user_id" property="operateUserId" jdbcType="INTEGER" />
+    <result column="operate_user_name" property="operateUserName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="operate_type" property="operateType" jdbcType="BIT" />
+    <result column="operate_reason" property="operateReason" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    operate_id, operate_user_id, operate_user_name, create_time, update_time, operate_type, 
+    operate_reason, store_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.generator.entry.BackgroundStoreOperateLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from background_store_operate_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from background_store_operate_log
+    where operate_id = #{operateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from background_store_operate_log
+    where operate_id = #{operateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.generator.entry.BackgroundStoreOperateLogExample" >
+    delete from background_store_operate_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.generator.entry.BackgroundStoreOperateLog" >
+    insert into background_store_operate_log (operate_id, operate_user_id, operate_user_name, 
+      create_time, update_time, operate_type, 
+      operate_reason, store_id)
+    values (#{operateId,jdbcType=INTEGER}, #{operateUserId,jdbcType=INTEGER}, #{operateUserName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{operateType,jdbcType=BIT}, 
+      #{operateReason,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.generator.entry.BackgroundStoreOperateLog" >
+    insert into background_store_operate_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operateId != null" >
+        operate_id,
+      </if>
+      <if test="operateUserId != null" >
+        operate_user_id,
+      </if>
+      <if test="operateUserName != null" >
+        operate_user_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="operateType != null" >
+        operate_type,
+      </if>
+      <if test="operateReason != null" >
+        operate_reason,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operateId != null" >
+        #{operateId,jdbcType=INTEGER},
+      </if>
+      <if test="operateUserId != null" >
+        #{operateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="operateUserName != null" >
+        #{operateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateType != null" >
+        #{operateType,jdbcType=BIT},
+      </if>
+      <if test="operateReason != null" >
+        #{operateReason,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.generator.entry.BackgroundStoreOperateLogExample" resultType="java.lang.Integer" >
+    select count(*) from background_store_operate_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update background_store_operate_log
+    <set >
+      <if test="record.operateId != null" >
+        operate_id = #{record.operateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.operateUserId != null" >
+        operate_user_id = #{record.operateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.operateUserName != null" >
+        operate_user_name = #{record.operateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operateType != null" >
+        operate_type = #{record.operateType,jdbcType=BIT},
+      </if>
+      <if test="record.operateReason != null" >
+        operate_reason = #{record.operateReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update background_store_operate_log
+    set operate_id = #{record.operateId,jdbcType=INTEGER},
+      operate_user_id = #{record.operateUserId,jdbcType=INTEGER},
+      operate_user_name = #{record.operateUserName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      operate_type = #{record.operateType,jdbcType=BIT},
+      operate_reason = #{record.operateReason,jdbcType=VARCHAR},
+      store_id = #{record.storeId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.generator.entry.BackgroundStoreOperateLog" >
+    update background_store_operate_log
+    <set >
+      <if test="operateUserId != null" >
+        operate_user_id = #{operateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="operateUserName != null" >
+        operate_user_name = #{operateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateType != null" >
+        operate_type = #{operateType,jdbcType=BIT},
+      </if>
+      <if test="operateReason != null" >
+        operate_reason = #{operateReason,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where operate_id = #{operateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.generator.entry.BackgroundStoreOperateLog" >
+    update background_store_operate_log
+    set operate_user_id = #{operateUserId,jdbcType=INTEGER},
+      operate_user_name = #{operateUserName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operate_type = #{operateType,jdbcType=BIT},
+      operate_reason = #{operateReason,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER}
+    where operate_id = #{operateId,jdbcType=INTEGER}
+  </update>
+</mapper>

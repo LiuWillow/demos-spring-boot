@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.generator.mapper.TStoreInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.generator.entry.TStoreInfo" >
+    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="store_sid" property="storeSid" jdbcType="VARCHAR" />
+    <result column="user_sid" property="userSid" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_name_zh" property="storeNameZh" jdbcType="VARCHAR" />
+    <result column="home_photo_count" property="homePhotoCount" jdbcType="TINYINT" />
+    <result column="transaction_amount" property="transactionAmount" jdbcType="VARCHAR" />
+    <result column="transaction_amount_plused_rmb" property="transactionAmountPlusedRmb" jdbcType="BIGINT" />
+    <result column="transaction_amount_display_usd" property="transactionAmountDisplayUsd" jdbcType="VARCHAR" />
+    <result column="transaction_amount_display_rmb" property="transactionAmountDisplayRmb" jdbcType="VARCHAR" />
+    <result column="transaction_amount_real_usd" property="transactionAmountRealUsd" jdbcType="BIGINT" />
+    <result column="transaction_amount_real_rmb" property="transactionAmountRealRmb" jdbcType="BIGINT" />
+    <result column="inquiry_reply_time_avg" property="inquiryReplyTimeAvg" jdbcType="INTEGER" />
+    <result column="inquiry_reply_percent" property="inquiryReplyPercent" jdbcType="VARCHAR" />
+    <result column="store_score" property="storeScore" jdbcType="VARCHAR" />
+    <result column="store_goods_pv" property="storeGoodsPv" jdbcType="INTEGER" />
+    <result column="store_pv" property="storePv" jdbcType="INTEGER" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="open_time" property="openTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="product_presentation" property="productPresentation" jdbcType="VARCHAR" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="country_name" property="countryName" jdbcType="VARCHAR" />
+    <result column="ciq_validated" property="ciqValidated" jdbcType="BIT" />
+    <result column="corp_product" property="corpProduct" jdbcType="VARCHAR" />
+    <result column="pay_way" property="payWay" jdbcType="VARCHAR" />
+    <result column="is_cp" property="isCp" jdbcType="BIT" />
+    <result column="is_cp_tt" property="isCpTt" jdbcType="BIT" />
+    <result column="goods_released_count" property="goodsReleasedCount" jdbcType="INTEGER" />
+    <result column="corp_logo" property="corpLogo" jdbcType="VARCHAR" />
+    <result column="customer_service_manager_id" property="customerServiceManagerId" jdbcType="INTEGER" />
+    <result column="customer_service_manager_name" property="customerServiceManagerName" jdbcType="VARCHAR" />
+    <result column="operate_user_id" property="operateUserId" jdbcType="INTEGER" />
+    <result column="operate_user_name" property="operateUserName" jdbcType="VARCHAR" />
+    <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
+    <result column="rectify_time_begin" property="rectifyTimeBegin" jdbcType="TIMESTAMP" />
+    <result column="rectify_time_end" property="rectifyTimeEnd" jdbcType="TIMESTAMP" />
+    <result column="charge_expired_time" property="chargeExpiredTime" jdbcType="TIMESTAMP" />
+    <result column="status_notice" property="statusNotice" jdbcType="BIT" />
+    <result column="notice_submit_time" property="noticeSubmitTime" jdbcType="TIMESTAMP" />
+    <result column="notice_begin_time" property="noticeBeginTime" jdbcType="TIMESTAMP" />
+    <result column="notice_end_time" property="noticeEndTime" jdbcType="TIMESTAMP" />
+    <result column="notice_submit_user_type" property="noticeSubmitUserType" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+
+    operate_time, rectify_time_begin, rectify_time_end, charge_expired_time, status_notice, 
+    notice_submit_time, notice_begin_time, notice_end_time, notice_submit_user_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.generator.entry.TStoreInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_store_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_store_info
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_store_info
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.generator.entry.TStoreInfoExample" >
+    delete from t_store_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.generator.entry.TStoreInfo" >
+    insert into t_store_info (store_id, user_id, store_sid, 
+      user_sid, store_name, store_name_zh, 
+      home_photo_count, transaction_amount, transaction_amount_plused_rmb, 
+      transaction_amount_display_usd, transaction_amount_display_rmb, 
+      transaction_amount_real_usd, transaction_amount_real_rmb, 
+      inquiry_reply_time_avg, inquiry_reply_percent, 
+      store_score, store_goods_pv, store_pv, 
+      qq, status, open_time, 
+      create_time, product_presentation, country_id, 
+      country_name, ciq_validated, corp_product, 
+      pay_way, is_cp, is_cp_tt, goods_released_count, 
+      corp_logo, customer_service_manager_id, customer_service_manager_name, 
+      operate_user_id, operate_user_name, operate_time, 
+      rectify_time_begin, rectify_time_end, charge_expired_time, 
+      status_notice, notice_submit_time, notice_begin_time, 
+      notice_end_time, notice_submit_user_type)
+    values (#{storeId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{storeSid,jdbcType=VARCHAR}, 
+      #{userSid,jdbcType=VARCHAR}, #{storeName,jdbcType=VARCHAR}, #{storeNameZh,jdbcType=VARCHAR}, 
+      #{homePhotoCount,jdbcType=TINYINT}, #{transactionAmount,jdbcType=VARCHAR}, #{transactionAmountPlusedRmb,jdbcType=BIGINT}, 
+      #{transactionAmountDisplayUsd,jdbcType=VARCHAR}, #{transactionAmountDisplayRmb,jdbcType=VARCHAR}, 
+      #{transactionAmountRealUsd,jdbcType=BIGINT}, #{transactionAmountRealRmb,jdbcType=BIGINT}, 
+      #{inquiryReplyTimeAvg,jdbcType=INTEGER}, #{inquiryReplyPercent,jdbcType=VARCHAR}, 
+      #{storeScore,jdbcType=VARCHAR}, #{storeGoodsPv,jdbcType=INTEGER}, #{storePv,jdbcType=INTEGER}, 
+      #{qq,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{openTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{productPresentation,jdbcType=VARCHAR}, #{countryId,jdbcType=INTEGER}, 
+      #{countryName,jdbcType=VARCHAR}, #{ciqValidated,jdbcType=BIT}, #{corpProduct,jdbcType=VARCHAR}, 
+      #{payWay,jdbcType=VARCHAR}, #{isCp,jdbcType=BIT}, #{isCpTt,jdbcType=BIT}, #{goodsReleasedCount,jdbcType=INTEGER}, 
+      #{corpLogo,jdbcType=VARCHAR}, #{customerServiceManagerId,jdbcType=INTEGER}, #{customerServiceManagerName,jdbcType=VARCHAR}, 
+      #{operateUserId,jdbcType=INTEGER}, #{operateUserName,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, 
+      #{rectifyTimeBegin,jdbcType=TIMESTAMP}, #{rectifyTimeEnd,jdbcType=TIMESTAMP}, #{chargeExpiredTime,jdbcType=TIMESTAMP}, 
+      #{statusNotice,jdbcType=BIT}, #{noticeSubmitTime,jdbcType=TIMESTAMP}, #{noticeBeginTime,jdbcType=TIMESTAMP}, 
+      #{noticeEndTime,jdbcType=TIMESTAMP}, #{noticeSubmitUserType,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.generator.entry.TStoreInfo" >
+    insert into t_store_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="storeSid != null" >
+        store_sid,
+      </if>
+      <if test="userSid != null" >
+        user_sid,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="storeNameZh != null" >
+        store_name_zh,
+      </if>
+      <if test="homePhotoCount != null" >
+        home_photo_count,
+      </if>
+      <if test="transactionAmount != null" >
+        transaction_amount,
+      </if>
+      <if test="transactionAmountPlusedRmb != null" >
+        transaction_amount_plused_rmb,
+      </if>
+      <if test="transactionAmountDisplayUsd != null" >
+        transaction_amount_display_usd,
+      </if>
+      <if test="transactionAmountDisplayRmb != null" >
+        transaction_amount_display_rmb,
+      </if>
+      <if test="transactionAmountRealUsd != null" >
+        transaction_amount_real_usd,
+      </if>
+      <if test="transactionAmountRealRmb != null" >
+        transaction_amount_real_rmb,
+      </if>
+      <if test="inquiryReplyTimeAvg != null" >
+        inquiry_reply_time_avg,
+      </if>
+      <if test="inquiryReplyPercent != null" >
+        inquiry_reply_percent,
+      </if>
+      <if test="storeScore != null" >
+        store_score,
+      </if>
+      <if test="storeGoodsPv != null" >
+        store_goods_pv,
+      </if>
+      <if test="storePv != null" >
+        store_pv,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="openTime != null" >
+        open_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="productPresentation != null" >
+        product_presentation,
+      </if>
+      <if test="countryId != null" >
+        country_id,
+      </if>
+      <if test="countryName != null" >
+        country_name,
+      </if>
+      <if test="ciqValidated != null" >
+        ciq_validated,
+      </if>
+      <if test="corpProduct != null" >
+        corp_product,
+      </if>
+      <if test="payWay != null" >
+        pay_way,
+      </if>
+      <if test="isCp != null" >
+        is_cp,
+      </if>
+      <if test="isCpTt != null" >
+        is_cp_tt,
+      </if>
+      <if test="goodsReleasedCount != null" >
+        goods_released_count,
+      </if>
+      <if test="corpLogo != null" >
+        corp_logo,
+      </if>
+      <if test="customerServiceManagerId != null" >
+        customer_service_manager_id,
+      </if>
+      <if test="customerServiceManagerName != null" >
+        customer_service_manager_name,
+      </if>
+      <if test="operateUserId != null" >
+        operate_user_id,
+      </if>
+      <if test="operateUserName != null" >
+        operate_user_name,
+      </if>
+      <if test="operateTime != null" >
+        operate_time,
+      </if>
+      <if test="rectifyTimeBegin != null" >
+        rectify_time_begin,
+      </if>
+      <if test="rectifyTimeEnd != null" >
+        rectify_time_end,
+      </if>
+      <if test="chargeExpiredTime != null" >
+        charge_expired_time,
+      </if>
+      <if test="statusNotice != null" >
+        status_notice,
+      </if>
+      <if test="noticeSubmitTime != null" >
+        notice_submit_time,
+      </if>
+      <if test="noticeBeginTime != null" >
+        notice_begin_time,
+      </if>
+      <if test="noticeEndTime != null" >
+        notice_end_time,
+      </if>
+      <if test="noticeSubmitUserType != null" >
+        notice_submit_user_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="storeSid != null" >
+        #{storeSid,jdbcType=VARCHAR},
+      </if>
+      <if test="userSid != null" >
+        #{userSid,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNameZh != null" >
+        #{storeNameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhotoCount != null" >
+        #{homePhotoCount,jdbcType=TINYINT},
+      </if>
+      <if test="transactionAmount != null" >
+        #{transactionAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionAmountPlusedRmb != null" >
+        #{transactionAmountPlusedRmb,jdbcType=BIGINT},
+      </if>
+      <if test="transactionAmountDisplayUsd != null" >
+        #{transactionAmountDisplayUsd,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionAmountDisplayRmb != null" >
+        #{transactionAmountDisplayRmb,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionAmountRealUsd != null" >
+        #{transactionAmountRealUsd,jdbcType=BIGINT},
+      </if>
+      <if test="transactionAmountRealRmb != null" >
+        #{transactionAmountRealRmb,jdbcType=BIGINT},
+      </if>
+      <if test="inquiryReplyTimeAvg != null" >
+        #{inquiryReplyTimeAvg,jdbcType=INTEGER},
+      </if>
+      <if test="inquiryReplyPercent != null" >
+        #{inquiryReplyPercent,jdbcType=VARCHAR},
+      </if>
+      <if test="storeScore != null" >
+        #{storeScore,jdbcType=VARCHAR},
+      </if>
+      <if test="storeGoodsPv != null" >
+        #{storeGoodsPv,jdbcType=INTEGER},
+      </if>
+      <if test="storePv != null" >
+        #{storePv,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="openTime != null" >
+        #{openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productPresentation != null" >
+        #{productPresentation,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="countryName != null" >
+        #{countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="ciqValidated != null" >
+        #{ciqValidated,jdbcType=BIT},
+      </if>
+      <if test="corpProduct != null" >
+        #{corpProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="payWay != null" >
+        #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="isCp != null" >
+        #{isCp,jdbcType=BIT},
+      </if>
+      <if test="isCpTt != null" >
+        #{isCpTt,jdbcType=BIT},
+      </if>
+      <if test="goodsReleasedCount != null" >
+        #{goodsReleasedCount,jdbcType=INTEGER},
+      </if>
+      <if test="corpLogo != null" >
+        #{corpLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerServiceManagerId != null" >
+        #{customerServiceManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerServiceManagerName != null" >
+        #{customerServiceManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateUserId != null" >
+        #{operateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="operateUserName != null" >
+        #{operateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rectifyTimeBegin != null" >
+        #{rectifyTimeBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rectifyTimeEnd != null" >
+        #{rectifyTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargeExpiredTime != null" >
+        #{chargeExpiredTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusNotice != null" >
+        #{statusNotice,jdbcType=BIT},
+      </if>
+      <if test="noticeSubmitTime != null" >
+        #{noticeSubmitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeBeginTime != null" >
+        #{noticeBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeEndTime != null" >
+        #{noticeEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeSubmitUserType != null" >
+        #{noticeSubmitUserType,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.generator.entry.TStoreInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_store_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_store_info
+    <set >
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.storeSid != null" >
+        store_sid = #{record.storeSid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSid != null" >
+        user_sid = #{record.userSid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeName != null" >
+        store_name = #{record.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeNameZh != null" >
+        store_name_zh = #{record.storeNameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homePhotoCount != null" >
+        home_photo_count = #{record.homePhotoCount,jdbcType=TINYINT},
+      </if>
+      <if test="record.transactionAmount != null" >
+        transaction_amount = #{record.transactionAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionAmountPlusedRmb != null" >
+        transaction_amount_plused_rmb = #{record.transactionAmountPlusedRmb,jdbcType=BIGINT},
+      </if>
+      <if test="record.transactionAmountDisplayUsd != null" >
+        transaction_amount_display_usd = #{record.transactionAmountDisplayUsd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionAmountDisplayRmb != null" >
+        transaction_amount_display_rmb = #{record.transactionAmountDisplayRmb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionAmountRealUsd != null" >
+        transaction_amount_real_usd = #{record.transactionAmountRealUsd,jdbcType=BIGINT},
+      </if>
+      <if test="record.transactionAmountRealRmb != null" >
+        transaction_amount_real_rmb = #{record.transactionAmountRealRmb,jdbcType=BIGINT},
+      </if>
+      <if test="record.inquiryReplyTimeAvg != null" >
+        inquiry_reply_time_avg = #{record.inquiryReplyTimeAvg,jdbcType=INTEGER},
+      </if>
+      <if test="record.inquiryReplyPercent != null" >
+        inquiry_reply_percent = #{record.inquiryReplyPercent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeScore != null" >
+        store_score = #{record.storeScore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeGoodsPv != null" >
+        store_goods_pv = #{record.storeGoodsPv,jdbcType=INTEGER},
+      </if>
+      <if test="record.storePv != null" >
+        store_pv = #{record.storePv,jdbcType=INTEGER},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.openTime != null" >
+        open_time = #{record.openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.productPresentation != null" >
+        product_presentation = #{record.productPresentation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryId != null" >
+        country_id = #{record.countryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.countryName != null" >
+        country_name = #{record.countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ciqValidated != null" >
+        ciq_validated = #{record.ciqValidated,jdbcType=BIT},
+      </if>
+      <if test="record.corpProduct != null" >
+        corp_product = #{record.corpProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payWay != null" >
+        pay_way = #{record.payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isCp != null" >
+        is_cp = #{record.isCp,jdbcType=BIT},
+      </if>
+      <if test="record.isCpTt != null" >
+        is_cp_tt = #{record.isCpTt,jdbcType=BIT},
+      </if>
+      <if test="record.goodsReleasedCount != null" >
+        goods_released_count = #{record.goodsReleasedCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.corpLogo != null" >
+        corp_logo = #{record.corpLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerServiceManagerId != null" >
+        customer_service_manager_id = #{record.customerServiceManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerServiceManagerName != null" >
+        customer_service_manager_name = #{record.customerServiceManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateUserId != null" >
+        operate_user_id = #{record.operateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.operateUserName != null" >
+        operate_user_name = #{record.operateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateTime != null" >
+        operate_time = #{record.operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rectifyTimeBegin != null" >
+        rectify_time_begin = #{record.rectifyTimeBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rectifyTimeEnd != null" >
+        rectify_time_end = #{record.rectifyTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.chargeExpiredTime != null" >
+        charge_expired_time = #{record.chargeExpiredTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.statusNotice != null" >
+        status_notice = #{record.statusNotice,jdbcType=BIT},
+      </if>
+      <if test="record.noticeSubmitTime != null" >
+        notice_submit_time = #{record.noticeSubmitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.noticeBeginTime != null" >
+        notice_begin_time = #{record.noticeBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.noticeEndTime != null" >
+        notice_end_time = #{record.noticeEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.noticeSubmitUserType != null" >
+        notice_submit_user_type = #{record.noticeSubmitUserType,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_store_info
+    set store_id = #{record.storeId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      store_sid = #{record.storeSid,jdbcType=VARCHAR},
+      user_sid = #{record.userSid,jdbcType=VARCHAR},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
+      store_name_zh = #{record.storeNameZh,jdbcType=VARCHAR},
+      home_photo_count = #{record.homePhotoCount,jdbcType=TINYINT},
+      transaction_amount = #{record.transactionAmount,jdbcType=VARCHAR},
+      transaction_amount_plused_rmb = #{record.transactionAmountPlusedRmb,jdbcType=BIGINT},
+      transaction_amount_display_usd = #{record.transactionAmountDisplayUsd,jdbcType=VARCHAR},
+      transaction_amount_display_rmb = #{record.transactionAmountDisplayRmb,jdbcType=VARCHAR},
+      transaction_amount_real_usd = #{record.transactionAmountRealUsd,jdbcType=BIGINT},
+      transaction_amount_real_rmb = #{record.transactionAmountRealRmb,jdbcType=BIGINT},
+      inquiry_reply_time_avg = #{record.inquiryReplyTimeAvg,jdbcType=INTEGER},
+      inquiry_reply_percent = #{record.inquiryReplyPercent,jdbcType=VARCHAR},
+      store_score = #{record.storeScore,jdbcType=VARCHAR},
+      store_goods_pv = #{record.storeGoodsPv,jdbcType=INTEGER},
+      store_pv = #{record.storePv,jdbcType=INTEGER},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      open_time = #{record.openTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      product_presentation = #{record.productPresentation,jdbcType=VARCHAR},
+      country_id = #{record.countryId,jdbcType=INTEGER},
+      country_name = #{record.countryName,jdbcType=VARCHAR},
+      ciq_validated = #{record.ciqValidated,jdbcType=BIT},
+      corp_product = #{record.corpProduct,jdbcType=VARCHAR},
+      pay_way = #{record.payWay,jdbcType=VARCHAR},
+      is_cp = #{record.isCp,jdbcType=BIT},
+      is_cp_tt = #{record.isCpTt,jdbcType=BIT},
+      goods_released_count = #{record.goodsReleasedCount,jdbcType=INTEGER},
+      corp_logo = #{record.corpLogo,jdbcType=VARCHAR},
+      customer_service_manager_id = #{record.customerServiceManagerId,jdbcType=INTEGER},
+      customer_service_manager_name = #{record.customerServiceManagerName,jdbcType=VARCHAR},
+      operate_user_id = #{record.operateUserId,jdbcType=INTEGER},
+      operate_user_name = #{record.operateUserName,jdbcType=VARCHAR},
+      operate_time = #{record.operateTime,jdbcType=TIMESTAMP},
+      rectify_time_begin = #{record.rectifyTimeBegin,jdbcType=TIMESTAMP},
+      rectify_time_end = #{record.rectifyTimeEnd,jdbcType=TIMESTAMP},
+      charge_expired_time = #{record.chargeExpiredTime,jdbcType=TIMESTAMP},
+      status_notice = #{record.statusNotice,jdbcType=BIT},
+      notice_submit_time = #{record.noticeSubmitTime,jdbcType=TIMESTAMP},
+      notice_begin_time = #{record.noticeBeginTime,jdbcType=TIMESTAMP},
+      notice_end_time = #{record.noticeEndTime,jdbcType=TIMESTAMP},
+      notice_submit_user_type = #{record.noticeSubmitUserType,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.generator.entry.TStoreInfo" >
+    update t_store_info
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="storeSid != null" >
+        store_sid = #{storeSid,jdbcType=VARCHAR},
+      </if>
+      <if test="userSid != null" >
+        user_sid = #{userSid,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNameZh != null" >
+        store_name_zh = #{storeNameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhotoCount != null" >
+        home_photo_count = #{homePhotoCount,jdbcType=TINYINT},
+      </if>
+      <if test="transactionAmount != null" >
+        transaction_amount = #{transactionAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionAmountPlusedRmb != null" >
+        transaction_amount_plused_rmb = #{transactionAmountPlusedRmb,jdbcType=BIGINT},
+      </if>
+      <if test="transactionAmountDisplayUsd != null" >
+        transaction_amount_display_usd = #{transactionAmountDisplayUsd,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionAmountDisplayRmb != null" >
+        transaction_amount_display_rmb = #{transactionAmountDisplayRmb,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionAmountRealUsd != null" >
+        transaction_amount_real_usd = #{transactionAmountRealUsd,jdbcType=BIGINT},
+      </if>
+      <if test="transactionAmountRealRmb != null" >
+        transaction_amount_real_rmb = #{transactionAmountRealRmb,jdbcType=BIGINT},
+      </if>
+      <if test="inquiryReplyTimeAvg != null" >
+        inquiry_reply_time_avg = #{inquiryReplyTimeAvg,jdbcType=INTEGER},
+      </if>
+      <if test="inquiryReplyPercent != null" >
+        inquiry_reply_percent = #{inquiryReplyPercent,jdbcType=VARCHAR},
+      </if>
+      <if test="storeScore != null" >
+        store_score = #{storeScore,jdbcType=VARCHAR},
+      </if>
+      <if test="storeGoodsPv != null" >
+        store_goods_pv = #{storeGoodsPv,jdbcType=INTEGER},
+      </if>
+      <if test="storePv != null" >
+        store_pv = #{storePv,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="openTime != null" >
+        open_time = #{openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productPresentation != null" >
+        product_presentation = #{productPresentation,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="countryName != null" >
+        country_name = #{countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="ciqValidated != null" >
+        ciq_validated = #{ciqValidated,jdbcType=BIT},
+      </if>
+      <if test="corpProduct != null" >
+        corp_product = #{corpProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="payWay != null" >
+        pay_way = #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="isCp != null" >
+        is_cp = #{isCp,jdbcType=BIT},
+      </if>
+      <if test="isCpTt != null" >
+        is_cp_tt = #{isCpTt,jdbcType=BIT},
+      </if>
+      <if test="goodsReleasedCount != null" >
+        goods_released_count = #{goodsReleasedCount,jdbcType=INTEGER},
+      </if>
+      <if test="corpLogo != null" >
+        corp_logo = #{corpLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerServiceManagerId != null" >
+        customer_service_manager_id = #{customerServiceManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerServiceManagerName != null" >
+        customer_service_manager_name = #{customerServiceManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateUserId != null" >
+        operate_user_id = #{operateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="operateUserName != null" >
+        operate_user_name = #{operateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        operate_time = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rectifyTimeBegin != null" >
+        rectify_time_begin = #{rectifyTimeBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rectifyTimeEnd != null" >
+        rectify_time_end = #{rectifyTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargeExpiredTime != null" >
+        charge_expired_time = #{chargeExpiredTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusNotice != null" >
+        status_notice = #{statusNotice,jdbcType=BIT},
+      </if>
+      <if test="noticeSubmitTime != null" >
+        notice_submit_time = #{noticeSubmitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeBeginTime != null" >
+        notice_begin_time = #{noticeBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeEndTime != null" >
+        notice_end_time = #{noticeEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeSubmitUserType != null" >
+        notice_submit_user_type = #{noticeSubmitUserType,jdbcType=BIT},
+      </if>
+    </set>
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.generator.entry.TStoreInfo" >
+    update t_store_info
+    set user_id = #{userId,jdbcType=BIGINT},
+      store_sid = #{storeSid,jdbcType=VARCHAR},
+      user_sid = #{userSid,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      store_name_zh = #{storeNameZh,jdbcType=VARCHAR},
+      home_photo_count = #{homePhotoCount,jdbcType=TINYINT},
+      transaction_amount = #{transactionAmount,jdbcType=VARCHAR},
+      transaction_amount_plused_rmb = #{transactionAmountPlusedRmb,jdbcType=BIGINT},
+      transaction_amount_display_usd = #{transactionAmountDisplayUsd,jdbcType=VARCHAR},
+      transaction_amount_display_rmb = #{transactionAmountDisplayRmb,jdbcType=VARCHAR},
+      transaction_amount_real_usd = #{transactionAmountRealUsd,jdbcType=BIGINT},
+      transaction_amount_real_rmb = #{transactionAmountRealRmb,jdbcType=BIGINT},
+      inquiry_reply_time_avg = #{inquiryReplyTimeAvg,jdbcType=INTEGER},
+      inquiry_reply_percent = #{inquiryReplyPercent,jdbcType=VARCHAR},
+      store_score = #{storeScore,jdbcType=VARCHAR},
+      store_goods_pv = #{storeGoodsPv,jdbcType=INTEGER},
+      store_pv = #{storePv,jdbcType=INTEGER},
+      qq = #{qq,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      open_time = #{openTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      product_presentation = #{productPresentation,jdbcType=VARCHAR},
+      country_id = #{countryId,jdbcType=INTEGER},
+      country_name = #{countryName,jdbcType=VARCHAR},
+      ciq_validated = #{ciqValidated,jdbcType=BIT},
+      corp_product = #{corpProduct,jdbcType=VARCHAR},
+      pay_way = #{payWay,jdbcType=VARCHAR},
+      is_cp = #{isCp,jdbcType=BIT},
+      is_cp_tt = #{isCpTt,jdbcType=BIT},
+      goods_released_count = #{goodsReleasedCount,jdbcType=INTEGER},
+      corp_logo = #{corpLogo,jdbcType=VARCHAR},
+      customer_service_manager_id = #{customerServiceManagerId,jdbcType=INTEGER},
+      customer_service_manager_name = #{customerServiceManagerName,jdbcType=VARCHAR},
+      operate_user_id = #{operateUserId,jdbcType=INTEGER},
+      operate_user_name = #{operateUserName,jdbcType=VARCHAR},
+      operate_time = #{operateTime,jdbcType=TIMESTAMP},
+      rectify_time_begin = #{rectifyTimeBegin,jdbcType=TIMESTAMP},
+      rectify_time_end = #{rectifyTimeEnd,jdbcType=TIMESTAMP},
+      charge_expired_time = #{chargeExpiredTime,jdbcType=TIMESTAMP},
+      status_notice = #{statusNotice,jdbcType=BIT},
+      notice_submit_time = #{noticeSubmitTime,jdbcType=TIMESTAMP},
+      notice_begin_time = #{noticeBeginTime,jdbcType=TIMESTAMP},
+      notice_end_time = #{noticeEndTime,jdbcType=TIMESTAMP},
+      notice_submit_user_type = #{noticeSubmitUserType,jdbcType=BIT}
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+</mapper>

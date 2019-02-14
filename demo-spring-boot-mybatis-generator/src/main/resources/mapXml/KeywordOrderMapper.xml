@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.generator.mapper.KeywordOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.generator.entry.KeywordOrder" >
+    <id column="keyword_order_id" property="keywordOrderId" jdbcType="INTEGER" />
+    <result column="keyword_order_sid" property="keywordOrderSid" jdbcType="VARCHAR" />
+    <result column="keyword_basic_sid" property="keywordBasicSid" jdbcType="VARCHAR" />
+    <result column="ranking" property="ranking" jdbcType="INTEGER" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="effective_time_begin" property="effectiveTimeBegin" jdbcType="TIMESTAMP" />
+    <result column="effective_time_end" property="effectiveTimeEnd" jdbcType="TIMESTAMP" />
+    <result column="effective_duration" property="effectiveDuration" jdbcType="INTEGER" />
+    <result column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="unit_price" property="unitPrice" jdbcType="BIGINT" />
+    <result column="total_money" property="totalMoney" jdbcType="BIGINT" />
+    <result column="total_pay_money" property="totalPayMoney" jdbcType="BIGINT" />
+    <result column="currency" property="currency" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="main_user_id" property="mainUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="platform" property="platform" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    keyword_order_id, keyword_order_sid, keyword_basic_sid, ranking, order_sn, order_time, 
+    effective_time_begin, effective_time_end, effective_duration, gid, status, unit_price, 
+    total_money, total_pay_money, currency, user_id, main_user_id, create_time, update_time, 
+    remark, platform, is_delete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.generator.entry.KeywordOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from keyword_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from keyword_order
+    where keyword_order_id = #{keywordOrderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from keyword_order
+    where keyword_order_id = #{keywordOrderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.generator.entry.KeywordOrderExample" >
+    delete from keyword_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.generator.entry.KeywordOrder" >
+    insert into keyword_order (keyword_order_id, keyword_order_sid, 
+      keyword_basic_sid, ranking, order_sn, 
+      order_time, effective_time_begin, effective_time_end, 
+      effective_duration, gid, status, 
+      unit_price, total_money, total_pay_money, 
+      currency, user_id, main_user_id, 
+      create_time, update_time, remark, 
+      platform, is_delete)
+    values (#{keywordOrderId,jdbcType=INTEGER}, #{keywordOrderSid,jdbcType=VARCHAR}, 
+      #{keywordBasicSid,jdbcType=VARCHAR}, #{ranking,jdbcType=INTEGER}, #{orderSn,jdbcType=VARCHAR}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{effectiveTimeBegin,jdbcType=TIMESTAMP}, #{effectiveTimeEnd,jdbcType=TIMESTAMP}, 
+      #{effectiveDuration,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}, #{status,jdbcType=BIT}, 
+      #{unitPrice,jdbcType=BIGINT}, #{totalMoney,jdbcType=BIGINT}, #{totalPayMoney,jdbcType=BIGINT}, 
+      #{currency,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{mainUserId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{platform,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.generator.entry.KeywordOrder" >
+    insert into keyword_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="keywordOrderId != null" >
+        keyword_order_id,
+      </if>
+      <if test="keywordOrderSid != null" >
+        keyword_order_sid,
+      </if>
+      <if test="keywordBasicSid != null" >
+        keyword_basic_sid,
+      </if>
+      <if test="ranking != null" >
+        ranking,
+      </if>
+      <if test="orderSn != null" >
+        order_sn,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="effectiveTimeBegin != null" >
+        effective_time_begin,
+      </if>
+      <if test="effectiveTimeEnd != null" >
+        effective_time_end,
+      </if>
+      <if test="effectiveDuration != null" >
+        effective_duration,
+      </if>
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="unitPrice != null" >
+        unit_price,
+      </if>
+      <if test="totalMoney != null" >
+        total_money,
+      </if>
+      <if test="totalPayMoney != null" >
+        total_pay_money,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="mainUserId != null" >
+        main_user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="platform != null" >
+        platform,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="keywordOrderId != null" >
+        #{keywordOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="keywordOrderSid != null" >
+        #{keywordOrderSid,jdbcType=VARCHAR},
+      </if>
+      <if test="keywordBasicSid != null" >
+        #{keywordBasicSid,jdbcType=VARCHAR},
+      </if>
+      <if test="ranking != null" >
+        #{ranking,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveTimeBegin != null" >
+        #{effectiveTimeBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveTimeEnd != null" >
+        #{effectiveTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveDuration != null" >
+        #{effectiveDuration,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice,jdbcType=BIGINT},
+      </if>
+      <if test="totalMoney != null" >
+        #{totalMoney,jdbcType=BIGINT},
+      </if>
+      <if test="totalPayMoney != null" >
+        #{totalPayMoney,jdbcType=BIGINT},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="mainUserId != null" >
+        #{mainUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="platform != null" >
+        #{platform,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.generator.entry.KeywordOrderExample" resultType="java.lang.Integer" >
+    select count(*) from keyword_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update keyword_order
+    <set >
+      <if test="record.keywordOrderId != null" >
+        keyword_order_id = #{record.keywordOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.keywordOrderSid != null" >
+        keyword_order_sid = #{record.keywordOrderSid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keywordBasicSid != null" >
+        keyword_basic_sid = #{record.keywordBasicSid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ranking != null" >
+        ranking = #{record.ranking,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderSn != null" >
+        order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTime != null" >
+        order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.effectiveTimeBegin != null" >
+        effective_time_begin = #{record.effectiveTimeBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.effectiveTimeEnd != null" >
+        effective_time_end = #{record.effectiveTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.effectiveDuration != null" >
+        effective_duration = #{record.effectiveDuration,jdbcType=INTEGER},
+      </if>
+      <if test="record.gid != null" >
+        gid = #{record.gid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.unitPrice != null" >
+        unit_price = #{record.unitPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.totalMoney != null" >
+        total_money = #{record.totalMoney,jdbcType=BIGINT},
+      </if>
+      <if test="record.totalPayMoney != null" >
+        total_pay_money = #{record.totalPayMoney,jdbcType=BIGINT},
+      </if>
+      <if test="record.currency != null" >
+        currency = #{record.currency,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.mainUserId != null" >
+        main_user_id = #{record.mainUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.platform != null" >
+        platform = #{record.platform,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update keyword_order
+    set keyword_order_id = #{record.keywordOrderId,jdbcType=INTEGER},
+      keyword_order_sid = #{record.keywordOrderSid,jdbcType=VARCHAR},
+      keyword_basic_sid = #{record.keywordBasicSid,jdbcType=VARCHAR},
+      ranking = #{record.ranking,jdbcType=INTEGER},
+      order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      effective_time_begin = #{record.effectiveTimeBegin,jdbcType=TIMESTAMP},
+      effective_time_end = #{record.effectiveTimeEnd,jdbcType=TIMESTAMP},
+      effective_duration = #{record.effectiveDuration,jdbcType=INTEGER},
+      gid = #{record.gid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=BIT},
+      unit_price = #{record.unitPrice,jdbcType=BIGINT},
+      total_money = #{record.totalMoney,jdbcType=BIGINT},
+      total_pay_money = #{record.totalPayMoney,jdbcType=BIGINT},
+      currency = #{record.currency,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      main_user_id = #{record.mainUserId,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      platform = #{record.platform,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.generator.entry.KeywordOrder" >
+    update keyword_order
+    <set >
+      <if test="keywordOrderSid != null" >
+        keyword_order_sid = #{keywordOrderSid,jdbcType=VARCHAR},
+      </if>
+      <if test="keywordBasicSid != null" >
+        keyword_basic_sid = #{keywordBasicSid,jdbcType=VARCHAR},
+      </if>
+      <if test="ranking != null" >
+        ranking = #{ranking,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveTimeBegin != null" >
+        effective_time_begin = #{effectiveTimeBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveTimeEnd != null" >
+        effective_time_end = #{effectiveTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveDuration != null" >
+        effective_duration = #{effectiveDuration,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="unitPrice != null" >
+        unit_price = #{unitPrice,jdbcType=BIGINT},
+      </if>
+      <if test="totalMoney != null" >
+        total_money = #{totalMoney,jdbcType=BIGINT},
+      </if>
+      <if test="totalPayMoney != null" >
+        total_pay_money = #{totalPayMoney,jdbcType=BIGINT},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="mainUserId != null" >
+        main_user_id = #{mainUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="platform != null" >
+        platform = #{platform,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    where keyword_order_id = #{keywordOrderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.generator.entry.KeywordOrder" >
+    update keyword_order
+    set keyword_order_sid = #{keywordOrderSid,jdbcType=VARCHAR},
+      keyword_basic_sid = #{keywordBasicSid,jdbcType=VARCHAR},
+      ranking = #{ranking,jdbcType=INTEGER},
+      order_sn = #{orderSn,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      effective_time_begin = #{effectiveTimeBegin,jdbcType=TIMESTAMP},
+      effective_time_end = #{effectiveTimeEnd,jdbcType=TIMESTAMP},
+      effective_duration = #{effectiveDuration,jdbcType=INTEGER},
+      gid = #{gid,jdbcType=INTEGER},
+      status = #{status,jdbcType=BIT},
+      unit_price = #{unitPrice,jdbcType=BIGINT},
+      total_money = #{totalMoney,jdbcType=BIGINT},
+      total_pay_money = #{totalPayMoney,jdbcType=BIGINT},
+      currency = #{currency,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
+      main_user_id = #{mainUserId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      platform = #{platform,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BIT}
+    where keyword_order_id = #{keywordOrderId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,68 @@
+package com.rabbitmq.sender;
+
+import com.alibaba.fastjson.JSON;
+import com.rabbitmq.config.AmqpConfig;
+import com.rabbitmq.config.DelaySenderConfig;
+import com.rabbitmq.consumer.DelayListenerConfig;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.support.CorrelationData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.UUID;
+
+@Service
+@Slf4j
+public class RabbitMQSendServiceImpl implements RabbitMQSendService, RabbitTemplate.ConfirmCallback {
+    private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    public RabbitMQSendServiceImpl(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+        rabbitTemplate.setConfirmCallback(this);
+    }
+
+    @Override
+    public void sendFanout(String msg) {
+        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+        rabbitTemplate.convertAndSend(AmqpConfig.EXANGE_NAME, AmqpConfig.ROUTING_KEY, msg, correlationData);
+    }
+
+    @Override
+    public void sendFanout(CorpLogoModel corpLogoModel, String fanoutExhcangeName) {
+        rabbitTemplate.convertAndSend(fanoutExhcangeName, "", JSON.toJSONString(corpLogoModel));
+    }
+
+    @Override
+    public void sendTopic(String message, String routingKey) {
+        rabbitTemplate.convertAndSend(AmqpConfig.CORP_LOGO_TOPIC_EXCHANGE_STORE, routingKey, message);
+    }
+
+    @Override
+    public void sendCloseStore(ChargeMqSenderModel model) {
+        String json = JSON.toJSONString(model);
+        rabbitTemplate.convertAndSend(AmqpConfig.CHARGE_EXCHANGE, "", json);
+    }
+
+    @Override
+    public void sendDelay(String msgDelay) {
+        //消息发到原始队列，5s后消息到期，转发到死信路由绑定的死信队列，然后被消费
+        rabbitTemplate.convertAndSend(DelaySenderConfig.ORIGIN_DIRECT_EXCHANGE, DelaySenderConfig.ORIGIN_ROUTING_KEY,
+                msgDelay, msg -> {
+                    msg.getMessageProperties().setExpiration("5000");
+                    return msg;
+                });
+        log.info("成功发送延迟消息: " + msgDelay);
+    }
+
+    @Override
+    public void confirm(CorrelationData correlationData, boolean b, String s) {
+        log.info("回调id：" + correlationData);
+        if (b) {
+            log.info("回调-------消费成功------");
+            return;
+        }
+        log.info("回调-------消费失败-----------");
+    }
+}
