@@ -107,7 +107,13 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-
+    store_id, user_id, store_sid, user_sid, store_name, store_name_zh, home_photo_count, 
+    transaction_amount, transaction_amount_plused_rmb, transaction_amount_display_usd, 
+    transaction_amount_display_rmb, transaction_amount_real_usd, transaction_amount_real_rmb, 
+    inquiry_reply_time_avg, inquiry_reply_percent, store_score, store_goods_pv, store_pv, 
+    qq, status, open_time, create_time, product_presentation, country_id, country_name, 
+    ciq_validated, corp_product, pay_way, is_cp, is_cp_tt, goods_released_count, corp_logo, 
+    customer_service_manager_id, customer_service_manager_name, operate_user_id, operate_user_name, 
     operate_time, rectify_time_begin, rectify_time_end, charge_expired_time, status_notice, 
     notice_submit_time, notice_begin_time, notice_end_time, notice_submit_user_type
   </sql>

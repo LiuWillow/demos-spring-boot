@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.dao.mapper.StoreInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.mybatis.entity.StoreInfoEntity" >
+    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="store_sid" property="storeSid" jdbcType="VARCHAR" />
+    <result column="user_sid" property="userSid" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_name_zh" property="storeNameZh" jdbcType="VARCHAR" />
+    <result column="home_photo_count" property="homePhotoCount" jdbcType="TINYINT" />
+    <result column="transaction_amount" property="transactionAmount" jdbcType="VARCHAR" />
+    <result column="transaction_amount_plused_rmb" property="transactionAmountPlusedRmb" jdbcType="BIGINT" />
+    <result column="transaction_amount_display_usd" property="transactionAmountDisplayUsd" jdbcType="VARCHAR" />
+    <result column="transaction_amount_display_rmb" property="transactionAmountDisplayRmb" jdbcType="VARCHAR" />
+    <result column="transaction_amount_real_usd" property="transactionAmountRealUsd" jdbcType="BIGINT" />
+    <result column="transaction_amount_real_rmb" property="transactionAmountRealRmb" jdbcType="BIGINT" />
+    <result column="inquiry_reply_time_avg" property="inquiryReplyTimeAvg" jdbcType="INTEGER" />
+    <result column="inquiry_reply_percent" property="inquiryReplyPercent" jdbcType="VARCHAR" />
+    <result column="store_score" property="storeScore" jdbcType="VARCHAR" />
+    <result column="store_goods_pv" property="storeGoodsPv" jdbcType="INTEGER" />
+    <result column="store_pv" property="storePv" jdbcType="INTEGER" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="open_time" property="openTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="product_presentation" property="productPresentation" jdbcType="VARCHAR" />
+    <result column="country_id" property="countryId" jdbcType="INTEGER" />
+    <result column="country_name" property="countryName" jdbcType="VARCHAR" />
+    <result column="ciq_validated" property="ciqValidated" jdbcType="BIT" />
+    <result column="corp_product" property="corpProduct" jdbcType="VARCHAR" />
+    <result column="pay_way" property="payWay" jdbcType="VARCHAR" />
+    <result column="is_cp" property="isCp" jdbcType="BIT" />
+    <result column="is_cp_tt" property="isCpTt" jdbcType="BIT" />
+    <result column="goods_released_count" property="goodsReleasedCount" jdbcType="INTEGER" />
+    <result column="corp_logo" property="corpLogo" jdbcType="VARCHAR" />
+    <result column="customer_service_manager_id" property="customerServiceManagerId" jdbcType="INTEGER" />
+    <result column="customer_service_manager_name" property="customerServiceManagerName" jdbcType="VARCHAR" />
+    <result column="operate_user_id" property="operateUserId" jdbcType="INTEGER" />
+    <result column="operate_user_name" property="operateUserName" jdbcType="VARCHAR" />
+    <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
+    <result column="rectify_time_begin" property="rectifyTimeBegin" jdbcType="TIMESTAMP" />
+    <result column="rectify_time_end" property="rectifyTimeEnd" jdbcType="TIMESTAMP" />
+    <result column="charge_expired_time" property="chargeExpiredTime" jdbcType="TIMESTAMP" />
+    <result column="status_notice" property="statusNotice" jdbcType="BIT" />
+    <result column="notice_submit_time" property="noticeSubmitTime" jdbcType="TIMESTAMP" />
+    <result column="notice_begin_time" property="noticeBeginTime" jdbcType="TIMESTAMP" />
+    <result column="notice_end_time" property="noticeEndTime" jdbcType="TIMESTAMP" />
+    <result column="notice_submit_user_type" property="noticeSubmitUserType" jdbcType="BIT" />
+  </resultMap>
+ 
+  <insert id="batchInsert" parameterType="list" >
+    insert into t_store_info (store_id, user_id, store_sid, 
+      user_sid, store_name, store_name_zh, 
+      home_photo_count, transaction_amount, transaction_amount_plused_rmb, 
+      transaction_amount_display_usd, transaction_amount_display_rmb, 
+      transaction_amount_real_usd, transaction_amount_real_rmb, 
+      inquiry_reply_time_avg, inquiry_reply_percent, 
+      store_score, store_goods_pv, store_pv, 
+      qq, status, open_time, 
+      create_time, product_presentation, country_id, 
+      country_name, ciq_validated, corp_product, 
+      pay_way, is_cp, is_cp_tt, goods_released_count, 
+      corp_logo, customer_service_manager_id, customer_service_manager_name, 
+      operate_user_id, operate_user_name, operate_time, 
+      rectify_time_begin, rectify_time_end, charge_expired_time, 
+      status_notice, notice_submit_time, notice_begin_time, 
+      notice_end_time, notice_submit_user_type)
+    values 
+    <foreach collection="list" item="item" separator=",">
+      (#{item.storeId,jdbcType=INTEGER}, #{item.userId,jdbcType=BIGINT}, #{item.storeSid,jdbcType=VARCHAR},
+      #{item.userSid,jdbcType=VARCHAR}, #{item.storeName,jdbcType=VARCHAR}, #{item.storeNameZh,jdbcType=VARCHAR},
+      #{item.homePhotoCount,jdbcType=TINYINT}, #{item.transactionAmount,jdbcType=VARCHAR}, #{item.transactionAmountPlusedRmb,jdbcType=BIGINT},
+      #{item.transactionAmountDisplayUsd,jdbcType=VARCHAR}, #{item.transactionAmountDisplayRmb,jdbcType=VARCHAR},
+      #{item.transactionAmountRealUsd,jdbcType=BIGINT}, #{item.transactionAmountRealRmb,jdbcType=BIGINT},
+      #{item.inquiryReplyTimeAvg,jdbcType=INTEGER}, #{item.inquiryReplyPercent,jdbcType=VARCHAR},
+      #{item.storeScore,jdbcType=VARCHAR}, #{item.storeGoodsPv,jdbcType=INTEGER}, #{item.storePv,jdbcType=INTEGER},
+      #{item.qq,jdbcType=VARCHAR}, #{item.status,jdbcType=TINYINT}, #{item.openTime,jdbcType=TIMESTAMP},
+      #{item.createTime,jdbcType=TIMESTAMP}, #{item.productPresentation,jdbcType=VARCHAR}, #{item.countryId,jdbcType=INTEGER},
+      #{item.countryName,jdbcType=VARCHAR}, #{item.ciqValidated,jdbcType=BIT}, #{item.corpProduct,jdbcType=VARCHAR},
+      #{item.payWay,jdbcType=VARCHAR}, #{item.isCp,jdbcType=BIT}, #{item.isCpTt,jdbcType=BIT}, #{item.goodsReleasedCount,jdbcType=INTEGER},
+      #{item.corpLogo,jdbcType=VARCHAR}, #{item.customerServiceManagerId,jdbcType=INTEGER}, #{item.customerServiceManagerName,jdbcType=VARCHAR},
+      #{item.operateUserId,jdbcType=INTEGER}, #{item.operateUserName,jdbcType=VARCHAR}, #{item.operateTime,jdbcType=TIMESTAMP},
+      #{item.rectifyTimeBegin,jdbcType=TIMESTAMP}, #{item.rectifyTimeEnd,jdbcType=TIMESTAMP}, #{item.chargeExpiredTime,jdbcType=TIMESTAMP},
+      #{item.statusNotice,jdbcType=BIT}, #{item.noticeSubmitTime,jdbcType=TIMESTAMP}, #{item.noticeBeginTime,jdbcType=TIMESTAMP},
+      #{item.noticeEndTime,jdbcType=TIMESTAMP}, #{item.noticeSubmitUserType,jdbcType=BIT})
+    </foreach>
+  </insert>
+</mapper>
