@@ -13,6 +13,7 @@
         <module>demo-spring-boot-mybatis-generator</module>
         <module>demo-spring-boot-data-mongodb</module>
         <module>demo-spring-boot-flywaydb</module>
+        <module>demo-spring-boot-redisson</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -21,7 +21,7 @@ import java.util.Arrays;
 /**
  * @author lwl
  * @date 2018/12/8 15:20
- * @description
+ * @description 默认lettuce
  */
 @Service
 public class RedisUtils {
@@ -42,10 +42,9 @@ public class RedisUtils {
      */
     public boolean lock(String keyString) {
         RedisConnection redisConnection = redisTemplate.getConnectionFactory().getConnection();
-//        log.info(Thread.currentThread().getName() + "进入lock方法");
         long expireAt = System.currentTimeMillis() + LOCK_EXPIRE;
         byte[] key = keyString.getBytes();
-        //原子操作
+        //nx+px原子操作
         Boolean acquire = redisConnection.set(key, String.valueOf(expireAt).getBytes(),
                 Expiration.milliseconds(LOCK_EXPIRE), RedisStringCommands.SetOption.ifAbsent());
 

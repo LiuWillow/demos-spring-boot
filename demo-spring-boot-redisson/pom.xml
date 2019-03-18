@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.lwl</groupId>
-    <artifactId>demo-spring-boot-data-redis</artifactId>
+    <artifactId>demo-spring-boot-redisson</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>demo-spring-boot-data-redis</name>
+    <name>demo-spring-boot-redisson</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
@@ -18,14 +18,15 @@
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.redisson</groupId>-->
+            <!--<artifactId>redisson-spring-boot-starter</artifactId>-->
+            <!--<version>3.10.4</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>3.10.4</version>
+            <artifactId>redisson</artifactId>
+            <version>3.7.2</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
