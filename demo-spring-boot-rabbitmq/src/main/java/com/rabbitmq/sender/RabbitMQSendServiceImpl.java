@@ -36,7 +36,7 @@ public class RabbitMQSendServiceImpl implements RabbitMQSendService, RabbitTempl
 
     @Override
     public void sendTopic(String message, String routingKey) {
-        rabbitTemplate.convertAndSend(AmqpConfig.CORP_LOGO_TOPIC_EXCHANGE_STORE, routingKey, message);
+        rabbitTemplate.convertAndSend(AmqpConfig.TOPIC_EXCHANGE, routingKey, message);
     }
 
     @Override

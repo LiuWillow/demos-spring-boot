@@ -8,9 +8,7 @@ import lombok.Data;
  * @description
  */
 @Data
-public class CaSample {
+public class Sample {
     private Integer id;
-    private String nameCn;
-    private String nameEn;
-    private Byte isUse;
+    private String name;
 }

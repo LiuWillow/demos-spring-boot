@@ -1,5 +1,6 @@
 package com.rabbitmq;
 
+import com.rabbitmq.config.AmqpConfig;
 import com.rabbitmq.sender.RabbitMQSendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +19,12 @@ public class DemoSpringBootRabbitmqApplication {
     @GetMapping("")
     public String sendDelay(){
         mqSendService.sendDelay("这是一条延迟消息");
+        return "success";
+    }
+
+    @GetMapping("topic")
+    public String sendTopic(String routingKey){
+        mqSendService.sendTopic("这是一条topic消息", routingKey);
         return "success";
     }
 }
