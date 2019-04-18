@@ -15,13 +15,8 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class RabbitMQSendServiceImpl implements RabbitMQSendService, RabbitTemplate.ConfirmCallback {
-    private RabbitTemplate rabbitTemplate;
-
     @Autowired
-    public RabbitMQSendServiceImpl(RabbitTemplate rabbitTemplate) {
-        this.rabbitTemplate = rabbitTemplate;
-        rabbitTemplate.setConfirmCallback(this);
-    }
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public void sendFanout(String msg) {

@@ -1,17 +1,38 @@
 package com.rabbitmq.config;
 
+import com.rabbitmq.sender.FailedSendCallBack;
+import com.rabbitmq.sender.MyConfirmCallback;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class AmqpConfig {
+    @Bean
+    public ConnectionFactory connectionFactory() {
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("111.231.217.106");
+        connectionFactory.setPassword("ca_rabbitmq2018");
+        connectionFactory.setUsername("ca_rabbitmq");
+        connectionFactory.setVirtualHost("dev");
+        //如果要开启失败回调,也必须开启发送方确认
+        connectionFactory.setPublisherConfirms(true);
+        return connectionFactory;
+    }
+
+    @Bean
+    public RabbitTemplate rabbitTemplate(){
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
+        //开启发送失败回调
+        rabbitTemplate.setMandatory(true);
+        //设置失败回调接口,当消息无法达到队列的时候即失败,失败的时候才会回调
+        rabbitTemplate.setReturnCallback(new FailedSendCallBack());
+        //设置发送方确认回调接口,当消息无法发送Broker时,表示失败, 无论成功失败都回回调
+        rabbitTemplate.setConfirmCallback(new MyConfirmCallback());
+        return rabbitTemplate;
+    }
     public static final String EXANGE_NAME = "lwl.exange";
     public static final String ROUTING_KEY = "lwl.routing.key";
     public static final String QUEUE_NAME = "lwl.queue";
@@ -56,17 +77,17 @@ public class AmqpConfig {
     public Binding bindTopicQueue2(TopicExchange topicExchange, Queue topicQueue2){
         return BindingBuilder.bind(topicQueue2).to(topicExchange).with(TOPIC_KEY_2);
     }
-    @Bean
-    @ConfigurationProperties(prefix = "spring.rabbitmq")
-    public ConnectionFactory connectionFactory(){
-        return new CachingConnectionFactory();
-    }
+//    @Bean
+//    @ConfigurationProperties(prefix = "spring.rabbitmq")
+//    public ConnectionFactory connectionFactory(){
+//        return new CachingConnectionFactory();
+//    }
 
-    @Bean
-    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public RabbitTemplate rabbitTemplate(){
-        return new RabbitTemplate(connectionFactory());
-    }
+//    @Bean
+//    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+//    public RabbitTemplate rabbitTemplate(){
+//        return new RabbitTemplate(connectionFactory());
+//    }
 
     @Bean
     public DirectExchange directExchange(){
