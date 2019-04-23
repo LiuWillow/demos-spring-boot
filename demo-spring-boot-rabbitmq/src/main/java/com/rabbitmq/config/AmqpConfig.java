@@ -3,6 +3,7 @@ package com.rabbitmq.config;
 import com.rabbitmq.sender.FailedSendCallBack;
 import com.rabbitmq.sender.MyConfirmCallback;
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -17,9 +18,18 @@ public class AmqpConfig {
         connectionFactory.setPassword("ca_rabbitmq2018");
         connectionFactory.setUsername("ca_rabbitmq");
         connectionFactory.setVirtualHost("dev");
-        //如果要开启失败回调,也必须开启发送方确认
+        //发送端,如果要开启失败回调,也必须开启发送方确认
         connectionFactory.setPublisherConfirms(true);
         return connectionFactory;
+    }
+
+    @Bean
+    public SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory (ConnectionFactory connectionFactory){
+        SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory = new SimpleRabbitListenerContainerFactory();
+        simpleRabbitListenerContainerFactory.setConnectionFactory(connectionFactory);
+        //消费端手动确认
+        simpleRabbitListenerContainerFactory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
+        return simpleRabbitListenerContainerFactory;
     }
 
     @Bean

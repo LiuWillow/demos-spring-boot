@@ -45,7 +45,7 @@ public class RabbitMQSendServiceImpl implements RabbitMQSendService, RabbitTempl
         //消息发到原始队列，5s后消息到期，转发到死信路由绑定的死信队列，然后被消费
         rabbitTemplate.convertAndSend(DelaySenderConfig.ORIGIN_DIRECT_EXCHANGE, DelaySenderConfig.ORIGIN_ROUTING_KEY,
                 msgDelay, msg -> {
-                    msg.getMessageProperties().setExpiration("5000");
+                    msg.getMessageProperties().setExpiration(10 * 3600 * 1000 + "");
                     return msg;
                 });
         log.info("成功发送延迟消息: " + msgDelay);
