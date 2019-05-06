@@ -15,6 +15,7 @@
         <module>demo-spring-boot-flywaydb</module>
         <module>demo-spring-boot-redisson</module>
         <module>demo-spring-boot-simple</module>
+        <module>demo-spring-boot-webflux</module>
     </modules>
     <packaging>pom</packaging>
 

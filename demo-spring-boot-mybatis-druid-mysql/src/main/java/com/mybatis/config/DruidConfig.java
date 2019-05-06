@@ -63,8 +63,10 @@ public class DruidConfig {
     @Bean
     public WallConfig wallConfig() {
         WallConfig wallConfig = new WallConfig();
-        wallConfig.setMultiStatementAllow(true);//允许一次执行多条语句
-        wallConfig.setNoneBaseStatementAllow(true);//允许一次执行多条语句
+        //允许一次执行多条语句
+        wallConfig.setMultiStatementAllow(true);
+        //允许一次执行多条语句
+        wallConfig.setNoneBaseStatementAllow(true);
         return wallConfig;
     }
 }
