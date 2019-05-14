@@ -18,17 +18,14 @@ public class CuratorSessionExample {
 
         client.start();
 
-        client.getConnectionStateListenable().addListener(new ConnectionStateListener() {
-            @Override
-            public void stateChanged(CuratorFramework client, ConnectionState newState) {
-                if (newState == ConnectionState.LOST){
-                    try {
-                        if (client.getZookeeperClient().blockUntilConnectedOrTimedOut()){
-                            //如果网络连接断开了，执行这里的操作
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+        client.getConnectionStateListenable().addListener((client1, newState) -> {
+            if (newState == ConnectionState.LOST){
+                try {
+                    if (client1.getZookeeperClient().blockUntilConnectedOrTimedOut()){
+                        //如果网络连接断开了，执行这里的操作
                     }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         });
