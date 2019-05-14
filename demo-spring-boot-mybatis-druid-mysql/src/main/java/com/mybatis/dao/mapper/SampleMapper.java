@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface SampleMapper {
     @Select("SELCT * FROM sample WHERE id = #{id}")
@@ -17,4 +19,6 @@ public interface SampleMapper {
 
     @Update("UPDATE sample set name = #{sample.name} WHERE id = #{sample.id}")
     void updateOne(@Param("sample") Sample sample);
+
+    void insertBatch(@Param("list") List<Sample> list);
 }
