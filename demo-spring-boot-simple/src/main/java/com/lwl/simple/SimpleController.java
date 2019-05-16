@@ -1,5 +1,7 @@
 package com.lwl.simple;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,8 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class SimpleController {
+    @Autowired
+    private AsyncService asyncService;
+
     @GetMapping("/simple")
     public String hah(){
         return "hah";
+    }
+
+    @GetMapping("/async")
+    public String asyncController() throws InterruptedException {
+        asyncService.asyncMethod();
+        return "异步调用中";
     }
 }
