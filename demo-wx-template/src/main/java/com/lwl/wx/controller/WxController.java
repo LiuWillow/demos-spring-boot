@@ -1,7 +1,8 @@
-package com.lwl.wx;
+package com.lwl.wx.controller;
 
 import com.lwl.wx.model.WxConfig;
 import com.lwl.wx.model.WxRequest;
+import com.lwl.wx.service.WxService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

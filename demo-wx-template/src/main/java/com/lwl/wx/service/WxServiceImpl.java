@@ -1,10 +1,12 @@
-package com.lwl.wx;
+package com.lwl.wx.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lwl.wx.model.AccessTokenResponse;
 import com.lwl.wx.model.TicketResponse;
 import com.lwl.wx.model.WxConfig;
 import com.lwl.wx.model.WxRequest;
+import com.lwl.wx.util.CheckUtils;
+import com.lwl.wx.util.WxUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

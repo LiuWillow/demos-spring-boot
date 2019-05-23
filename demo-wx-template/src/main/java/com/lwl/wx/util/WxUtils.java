@@ -1,4 +1,4 @@
-package com.lwl.wx;
+package com.lwl.wx.util;
 
 import com.lwl.wx.model.WxConfig;
 

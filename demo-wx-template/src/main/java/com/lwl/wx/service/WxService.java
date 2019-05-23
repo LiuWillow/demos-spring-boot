@@ -1,4 +1,4 @@
-package com.lwl.wx;
+package com.lwl.wx.service;
 
 import com.lwl.wx.model.WxConfig;
 import com.lwl.wx.model.WxRequest;
