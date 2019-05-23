@@ -1,4 +1,4 @@
-package com.lwl.rest.wx.util;
+package com.lwl.wx;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -9,15 +9,20 @@ import java.util.Arrays;
  * author liuwillow
  **/
 public class CheckUtils {
-    private static final String TOKEN = "lwltoken";
-
-    public static boolean checkSignature(String signature, String timestamp, String nonce) {
-        String[] arr = new String[]{TOKEN, timestamp, nonce};
+    /**
+     * 验证微信get请求到我们接口的参数
+     * @param signature
+     * @param timestamp
+     * @param nonce
+     * @return
+     */
+    public static boolean checkSignature(String signature, String timestamp, String nonce, String token) {
+        String[] arr = new String[]{token, timestamp, nonce};
         Arrays.sort(arr);
         // 2. 将三个参数字符串拼接成一个字符串进行sha1加密
         StringBuilder content = new StringBuilder();
-        for (int i = 0; i < arr.length; i++) {
-            content.append(arr[i]);
+        for (String anArr : arr) {
+            content.append(anArr);
         }
 
         MessageDigest md;
@@ -42,10 +47,10 @@ public class CheckUtils {
     }
 
     private static String byteToHexStr(byte mByte) {
-        char[] Digit = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+        char[] digit = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
         char[] tempArr = new char[2];
-        tempArr[0] = Digit[(mByte >>> 4) & 0X0F];
-        tempArr[1] = Digit[mByte & 0X0F];
+        tempArr[0] = digit[(mByte >>> 4) & 0X0F];
+        tempArr[1] = digit[mByte & 0X0F];
         return new String(tempArr);
     }
 }

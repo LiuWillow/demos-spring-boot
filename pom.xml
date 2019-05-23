@@ -17,7 +17,7 @@
         <module>demo-spring-boot-simple</module>
         <module>demo-spring-boot-webflux</module>
         <module>demo-zookeeper</module>
-        <module>demo-rest-template</module>
+        <module>demo-wx-template</module>
     </modules>
     <packaging>pom</packaging>
 
