@@ -7,8 +7,13 @@ import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFacto
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class AmqpConfig {
@@ -32,7 +37,12 @@ public class AmqpConfig {
         return simpleRabbitListenerContainerFactory;
     }
 
+    /**
+     * 如果要设置回调类，则用prototype
+     * @return
+     */
     @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public RabbitTemplate rabbitTemplate(){
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
         //开启发送失败回调
@@ -87,17 +97,6 @@ public class AmqpConfig {
     public Binding bindTopicQueue2(TopicExchange topicExchange, Queue topicQueue2){
         return BindingBuilder.bind(topicQueue2).to(topicExchange).with(TOPIC_KEY_2);
     }
-//    @Bean
-//    @ConfigurationProperties(prefix = "spring.rabbitmq")
-//    public ConnectionFactory connectionFactory(){
-//        return new CachingConnectionFactory();
-//    }
-
-//    @Bean
-//    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-//    public RabbitTemplate rabbitTemplate(){
-//        return new RabbitTemplate(connectionFactory());
-//    }
 
     @Bean
     public DirectExchange directExchange(){
@@ -114,5 +113,32 @@ public class AmqpConfig {
         return BindingBuilder.bind(queue())
                 .to(directExchange())
                 .with(AmqpConfig.ROUTING_KEY);
+    }
+
+    /**
+     * 下面是头交换机
+     */
+    @Bean
+    public HeadersExchange headersExchange(){
+        return new HeadersExchange("header.exchange.lwl");
+    }
+
+    @Bean
+    public Queue headerQueueLwl(){
+        return new Queue("header.queue.lwl");
+    }
+
+    @Bean
+    public Binding bindHeaderQueueLwl(HeadersExchange headersExchange, Queue headerQueueLwl){
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("name", "lwl");
+//        map.put("age", 23);
+        /**
+         * whereAny表示匹配任意
+         */
+//        BindingBuilder.bind(headerQueueLwl).to(headersExchange).whereAny("name", "age");
+//        BindingBuilder.bind(headerQueueLwl).to(headersExchange).whereAny(map);
+//        BindingBuilder.bind(headerQueueLwl).to(headersExchange).whereAll(map);
+        return BindingBuilder.bind(headerQueueLwl).to(headersExchange).where("name").matches("lwl");
     }
 }

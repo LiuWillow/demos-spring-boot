@@ -7,4 +7,6 @@ public interface RabbitMQSendService {
 
     void sendCloseStore(ChargeMqSenderModel senderModel);
     void sendDelay(String msgDelay);
+
+    void sendHeader(String msg);
 }

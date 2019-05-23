@@ -35,4 +35,10 @@ public class MyController {
         rabbitTemplate.convertAndSend(AmqpConfig.TOPIC_EXCHANGE, routingKey, msg, new CorrelationData(id));
         return "success";
     }
+
+    @GetMapping("header")
+    public String sendHeader(){
+        mqSendService.sendHeader("这是header消息");
+        return "success";
+    }
 }

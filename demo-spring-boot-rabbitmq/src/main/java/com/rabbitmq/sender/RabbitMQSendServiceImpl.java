@@ -5,11 +5,17 @@ import com.rabbitmq.config.AmqpConfig;
 import com.rabbitmq.config.DelaySenderConfig;
 import com.rabbitmq.consumer.DelayListenerConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.core.MessagePropertiesBuilder;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -49,6 +55,18 @@ public class RabbitMQSendServiceImpl implements RabbitMQSendService, RabbitTempl
                     return msg;
                 });
         log.info("成功发送延迟消息: " + msgDelay);
+    }
+
+    @Override
+    public void sendHeader(String msg) {
+        MessageProperties messageProperties = MessagePropertiesBuilder.newInstance()
+                .setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN)
+                .setMessageId("123")
+                .setHeader("name", "lwl")
+                .setHeader("age", 23).build();
+
+        Message message = MessageBuilder.withBody(msg.getBytes()).andProperties(messageProperties).build();
+        rabbitTemplate.convertAndSend("headersExchange", "", message);
     }
 
     @Override
