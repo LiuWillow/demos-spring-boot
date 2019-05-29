@@ -51,6 +51,8 @@ public class AmqpConfig {
         rabbitTemplate.setReturnCallback(new FailedSendCallBack());
         //设置发送方确认回调接口,当消息无法发送Broker时,表示失败, 无论成功失败都回回调
         rabbitTemplate.setConfirmCallback(new MyConfirmCallback());
+        //是否开启事务，
+//        rabbitTemplate.setChannelTransacted(true);
         return rabbitTemplate;
     }
     public static final String EXANGE_NAME = "lwl.exange";

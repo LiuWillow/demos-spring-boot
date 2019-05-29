@@ -48,6 +48,9 @@ public class RedisUtils {
         Boolean acquire = redisConnection.set(key, String.valueOf(expireAt).getBytes(),
                 Expiration.milliseconds(LOCK_EXPIRE), RedisStringCommands.SetOption.ifAbsent());
 
+        if (!redisConnection.isClosed()){
+            redisConnection.close();
+        }
         if (acquire == null) {
             return false;
         }
@@ -68,4 +71,11 @@ public class RedisUtils {
         System.out.println(Arrays.toString(redisTemplate.opsForGeo().position("company", "华为", "京东").toArray()));
         GeoResults<RedisGeoCommands.GeoLocation<String>> results = redisTemplate.opsForGeo().radius("company", "华为", new Distance(100));
     }
+
+    public void bulong(){
+        RedisConnection connection = redisTemplate.getConnectionFactory().getConnection();
+
+    }
+
+
 }
