@@ -1,4 +1,4 @@
-package com.redis;
+package com.redis.tpl;
 
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;

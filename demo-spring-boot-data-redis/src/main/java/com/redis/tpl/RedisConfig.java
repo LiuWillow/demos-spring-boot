@@ -1,4 +1,4 @@
-package com.redis;
+package com.redis.tpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,8 +23,7 @@ import java.time.Duration;
 
 @Configuration
 @EnableCaching
-@ComponentScan(basePackages="com.redis")
-public class RedisConfig extends CachingConfigurerSupport {
+public class RedisConfig{
     @Autowired
     private RedisTemplate redisTemplate;
     /**
