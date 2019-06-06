@@ -1,4 +1,4 @@
-package com.lwl.common.pool;
+package com.lwl.common.pool.generic;
 
 import lombok.Data;
 

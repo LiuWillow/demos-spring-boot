@@ -1,4 +1,4 @@
-package com.lwl.common.pool;
+package com.lwl.common.pool.generic;
 
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.PooledObjectFactory;
