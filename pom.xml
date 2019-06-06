@@ -18,6 +18,7 @@
         <module>demo-spring-boot-webflux</module>
         <module>demo-zookeeper</module>
         <module>demo-wx-template</module>
+        <module>demo-apache-common-pool</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -65,7 +66,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -116,12 +120,6 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
                 <version>2.6.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>ca-common</groupId>
-                <artifactId>tools</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
             <dependency>
