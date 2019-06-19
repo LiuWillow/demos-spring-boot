@@ -1,5 +1,7 @@
 package com.redis.tpl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -10,13 +12,19 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisGeoCommands;
 import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author lwl
@@ -72,9 +80,34 @@ public class RedisUtils {
         GeoResults<RedisGeoCommands.GeoLocation<String>> results = redisTemplate.opsForGeo().radius("company", "华为", new Distance(100));
     }
 
-    public void bulong(){
-        RedisConnection connection = redisTemplate.getConnectionFactory().getConnection();
+    public void hashSet(String key, Object obj){
+        Map<String, String> map = objectToMap(obj);
+        redisTemplate.opsForHash().putAll(key, map);
+    }
 
+    public <T> T hashGet(String key, Class<T> clazz){
+        Map<String, String> entries = redisTemplate.opsForHash().entries(key);
+        String jsonString = JSON.toJSONString(entries);
+        return JSONObject.parseObject(jsonString, clazz);
+    }
+
+    private Map<String, String> objectToMap(Object obj){
+        Map<String, String> map = new HashMap<>(32);
+        Class<?> clazz = obj.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                Object object = field.get(obj);
+                if (Objects.isNull(object)){
+                    continue;
+                }
+                map.put(field.getName(), object.toString());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return map;
     }
 
 

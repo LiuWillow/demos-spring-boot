@@ -1,5 +1,6 @@
 package com.redis.tpl;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisStringCommands;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private RedisUtils redisUtils;
 
     @GetMapping("/lalal")
     public void tset() {
@@ -26,5 +29,16 @@ public class TestController {
             connection.close();
         }
         System.out.println();
+    }
+
+    @GetMapping("hash")
+    public HashObject hash(String key, String name){
+        HashObject hashObject = new HashObject();
+        hashObject.setAge(11);
+        hashObject.setId(111L);
+        hashObject.setName(name);
+        hashObject.setPassword("sdfsdfdf");
+        redisUtils.hashSet(key, hashObject);
+        return redisUtils.hashGet(key, HashObject.class);
     }
 }
