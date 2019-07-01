@@ -16,8 +16,6 @@ import org.springframework.dao.annotation.PersistenceExceptionTranslationPostPro
 
 @Configuration
 public class DruidConfig {
-
-    private Logger logger = LoggerFactory.getLogger(DruidConfig.class);
     @Value("${spring.datasource.username}")
     private String username;
     @Value("${spring.datasource.password}")

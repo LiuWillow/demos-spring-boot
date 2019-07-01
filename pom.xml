@@ -19,6 +19,7 @@
         <module>demo-zookeeper</module>
         <module>demo-wx-template</module>
         <module>demo-apache-common-pool</module>
+        <module>demo-spring-boot-mybatis-plus</module>
     </modules>
     <packaging>pom</packaging>
 
