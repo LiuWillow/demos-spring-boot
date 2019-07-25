@@ -21,6 +21,7 @@
         <module>demo-apache-common-pool</module>
         <module>demo-spring-boot-mybatis-plus</module>
         <module>demo-spring-boot-mybatis-multi-datasource</module>
+        <module>demo-websocket</module>
     </modules>
     <packaging>pom</packaging>
 

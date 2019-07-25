@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 后台大布局 - Layui</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+    <body>
+        <div id="loginForm" style="width: 500px">
+            <form class="layui-form" action="/login" method="post">
+                <div class="layui-form-item" style="padding-top:10px;">
+                    <label class="layui-form-label">用户id</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="username" required  lay-verify="required" placeholder="请输入用戶名" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码框</label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">辅助文字</div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" id="luban" lay-submit lay-filter="luban">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+
+
+<script src="jquery.js"></script>
+<script src="/layui/layui.js"></script>
+<script>
+    layui.use('layer', function() {
+        layer.open({
+            type: 1,
+            content: $('#loginForm'),
+            maxWidth: 600
+        });
+    });
+    var socket;
+    if(typeof(WebSocket) == "undefined") {
+        console.log("您的浏览器不支持WebSocket");
+    }else{
+        console.log("您的浏览器支持WebSocket");
+        //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
+        //等同于socket = new WebSocket("ws://localhost:8083/checkcentersys/websocket/20");
+        socket = new WebSocket("ws://localhost:8272/ws/1");
+        //打开事件
+        socket.onopen = function() {
+            console.log("Socket 已打开");
+            //socket.send("这是来自客户端的消息" + location.href + new Date());
+        };
+        //获得消息事件
+        socket.onmessage = function(msg) {
+            console.log(msg.data);
+            //发现消息进入    开始处理前端触发逻辑
+        };
+        //关闭事件
+        socket.onclose = function() {
+            console.log("Socket已关闭");
+        };
+        //发生了错误事件
+        socket.onerror = function() {
+            alert("Socket发生了错误");
+            //此时可以尝试刷新页面
+        }
+        //离开页面时，关闭socket
+        //jquery1.8中已经被废弃，3.0中已经移除
+        // $(window).unload(function(){
+        //     socket.close();
+        //});
+    }
+
+</script>
+</html>
