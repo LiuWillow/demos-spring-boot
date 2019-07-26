@@ -1,6 +1,5 @@
 package com.lwl.mybatis.multi.mapper;
 
-import com.lwl.mybatis.multi.aop.Slave;
 import com.lwl.mybatis.multi.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;

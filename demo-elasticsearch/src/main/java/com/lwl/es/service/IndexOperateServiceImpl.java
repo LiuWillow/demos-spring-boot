@@ -1,9 +1,5 @@
 package com.lwl.es.service;
 
-import com.lwl.es.entity.IndexName;
-import com.lwl.es.entity.ESType;
-import com.lwl.es.entity.MyIndex;
-import com.lwl.es.entity.TypeWrapper;
 import com.lwl.es.util.ESUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
@@ -15,13 +11,8 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.*;
 
 /**

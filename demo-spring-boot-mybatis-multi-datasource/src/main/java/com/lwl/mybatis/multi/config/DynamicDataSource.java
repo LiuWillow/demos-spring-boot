@@ -2,8 +2,6 @@ package com.lwl.mybatis.multi.config;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
-import java.util.function.Supplier;
-
 /**
  * @author liuweilong
  * @description

@@ -3,7 +3,6 @@ package com.rabbitmq.sender;
 import com.alibaba.fastjson.JSON;
 import com.rabbitmq.config.AmqpConfig;
 import com.rabbitmq.config.DelaySenderConfig;
-import com.rabbitmq.consumer.DelayListenerConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
@@ -14,8 +13,6 @@ import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 @Service

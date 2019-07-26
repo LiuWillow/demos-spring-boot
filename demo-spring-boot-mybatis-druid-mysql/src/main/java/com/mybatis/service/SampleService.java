@@ -4,7 +4,6 @@ import com.mybatis.dao.mapper.SampleMapper;
 import com.mybatis.dao.mapper.ShitMapper;
 import com.mybatis.entity.Sample;
 import com.mybatis.entity.Shit;
-import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

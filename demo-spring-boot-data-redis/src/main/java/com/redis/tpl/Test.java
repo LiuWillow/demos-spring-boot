@@ -1,10 +1,8 @@
 package com.redis.tpl;
 
 import com.google.common.collect.Lists;
-import org.springframework.util.CollectionUtils;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * author liuweilong

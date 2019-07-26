@@ -1,6 +1,5 @@
 package com.lwl.redisson;
 
-import com.google.common.collect.ImmutableMultimap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

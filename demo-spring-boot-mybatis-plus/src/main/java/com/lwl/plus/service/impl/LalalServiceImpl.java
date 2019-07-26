@@ -4,7 +4,6 @@ import com.lwl.plus.entity.Lalal;
 import com.lwl.plus.mapper.LalalMapper;
 import com.lwl.plus.service.ILalalService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

@@ -6,8 +6,6 @@ import com.lwl.mongo.code.TemplateConstants;
 import com.lwl.mongo.entity.EvaluateTemplateEntity;
 import com.lwl.mongo.entity.GoodsTest;
 import com.lwl.mongo.entity.PageModule;
-import com.lwl.mongo.entity.TemplateForeModel;
-import com.lwl.mongo.util.BeanConvertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author lwl

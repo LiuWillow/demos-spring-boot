@@ -8,9 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * author liuweilong
  * date 2019/7/26 10:31

@@ -3,10 +3,8 @@ package com.lwl.zookeeper.curator;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.cache.NodeCache;
-import org.apache.curator.framework.recipes.cache.NodeCacheListener;
 import org.apache.curator.retry.RetryNTimes;
 import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 
 /**
