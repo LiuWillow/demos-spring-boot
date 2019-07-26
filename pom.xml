@@ -22,6 +22,7 @@
         <module>demo-spring-boot-mybatis-plus</module>
         <module>demo-spring-boot-mybatis-multi-datasource</module>
         <module>demo-websocket</module>
+        <module>demo-elasticsearch</module>
     </modules>
     <packaging>pom</packaging>
 
