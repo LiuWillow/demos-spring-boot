@@ -34,7 +34,25 @@ public class ESUtils {
         builder.endObject();
     }
 
-    public static void analyzeClass(Class clazz, XContentBuilder builder, String objectName, boolean isRoot) throws IOException {
+    public static String analyzeIndexName(Class clazz) {
+        Annotation[] annotations = clazz.getAnnotations();
+        String indexName = null;
+        for (Annotation annotation : annotations) {
+            if (annotation instanceof IndexName) {
+                IndexName indexNameAnnotation = (IndexName) annotation;
+                indexName = indexNameAnnotation.value();
+            }
+        }
+        checkIndexNameLowerCase(indexName);
+        if (Objects.isNull(indexName)) {
+            String simpleName = clazz.getSimpleName();
+            indexName = toCamel(simpleName);
+        }
+
+        return indexName;
+    }
+
+    private static void analyzeClass(Class clazz, XContentBuilder builder, String objectName, boolean isRoot) throws IOException {
         Field[] declaredFields = clazz.getDeclaredFields();
         if (!isRoot) {
             builder.startObject(objectName);
@@ -58,25 +76,6 @@ public class ESUtils {
             builder.endObject();
         }
     }
-
-    public static String analyzeIndexName(Class clazz) {
-        Annotation[] annotations = clazz.getAnnotations();
-        String indexName = null;
-        for (Annotation annotation : annotations) {
-            if (annotation instanceof IndexName) {
-                IndexName indexNameAnnotation = (IndexName) annotation;
-                indexName = indexNameAnnotation.value();
-            }
-        }
-        checkIndexNameLowerCase(indexName);
-        if (Objects.isNull(indexName)) {
-            String simpleName = clazz.getSimpleName();
-            indexName = toCamel(simpleName);
-        }
-
-        return indexName;
-    }
-
 
     private static void analyzeCommonProperties(XContentBuilder builder, Field declaredField) throws IOException {
         String name = declaredField.getName();
@@ -177,7 +176,7 @@ public class ESUtils {
         List<Character> list = new ArrayList<>();
 
         for (char aChar : chars) {
-            if (isUpperCase(aChar)) {
+            if (Character.isUpperCase(aChar)) {
                 char lowerCase = Character.toLowerCase(aChar);
                 list.add('_');
                 list.add(lowerCase);
@@ -199,14 +198,10 @@ public class ESUtils {
         }
         char[] chars = indexName.toCharArray();
         for (char aChar : chars) {
-            if (isUpperCase(aChar)) {
+            if (Character.isUpperCase(aChar)) {
                 throw new IllegalStateException("index name should be lower case");
             }
         }
-    }
-
-    private static boolean isUpperCase(char aChar) {
-        return aChar >= 'A' && aChar <= 'Z';
     }
 
 
