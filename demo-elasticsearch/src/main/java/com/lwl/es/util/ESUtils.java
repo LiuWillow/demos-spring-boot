@@ -1,7 +1,7 @@
 package com.lwl.es.util;
 
 import com.lwl.es.entity.ESType;
-import com.lwl.es.entity.IndexName;
+import com.lwl.es.entity.ESIndex;
 import com.lwl.es.entity.TypeWrapper;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.springframework.util.StringUtils;
@@ -38,8 +38,8 @@ public class ESUtils {
         Annotation[] annotations = clazz.getAnnotations();
         String indexName = null;
         for (Annotation annotation : annotations) {
-            if (annotation instanceof IndexName) {
-                IndexName indexNameAnnotation = (IndexName) annotation;
+            if (annotation instanceof ESIndex) {
+                ESIndex indexNameAnnotation = (ESIndex) annotation;
                 indexName = indexNameAnnotation.value();
             }
         }
@@ -65,9 +65,9 @@ public class ESUtils {
                     String type = typeWrapper.getType();
                     if (CUSTOM_OBJECT.equals(type)) {
                         analyzeClass(typeWrapper.getClazz(), builder, declaredField.getName(), false);
-                        continue;
+                    } else {
+                        analyzeCommonProperties(builder, declaredField);
                     }
-                    analyzeCommonProperties(builder, declaredField);
                 }
             }
             builder.endObject();
@@ -199,7 +199,7 @@ public class ESUtils {
         char[] chars = indexName.toCharArray();
         for (char aChar : chars) {
             if (Character.isUpperCase(aChar)) {
-                throw new IllegalStateException("index name should be lower case");
+                throw new IllegalStateException("index name must be lower case");
             }
         }
     }

@@ -13,13 +13,6 @@ import java.io.IOException;
  * date 2019/7/26 10:15
  * desc
  */
-@Service
-public class IndexQueryService {
-    @Autowired
-    private RestHighLevelClient client;
-
-    public boolean exist(String indexName) throws IOException {
-        GetIndexRequest request = new GetIndexRequest(indexName);
-        return client.indices().exists(request, RequestOptions.DEFAULT);
-    }
+public interface IndexQueryService {
+    boolean exist(String indexName) throws IOException;
 }

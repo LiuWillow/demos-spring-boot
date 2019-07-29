@@ -13,6 +13,6 @@ public interface IndexOperateService {
     void create(String indexName, Map<String, Object> mapping);
     void create(String indexName, XContentBuilder builder);
     void delete(String indexName);
-    void putMapping(Class clazz, String indexName);
+    void putMapping(Class clazz);
     void create(Class clazz);
 }
