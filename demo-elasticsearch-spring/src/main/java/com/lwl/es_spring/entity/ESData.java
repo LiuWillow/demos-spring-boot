@@ -1,6 +1,8 @@
-package com.lwl.es.entity.search;
+package com.lwl.es_spring.entity;
 
 import lombok.Data;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 import java.util.Date;
 import java.util.List;
@@ -10,9 +12,9 @@ import java.util.List;
  * date 2019/7/31 18:49
  * desc
  */
-@ESIndex("tm_data")
 @Data
-public class TmData {
+@Document(indexName = "es_data", shards = 3, replicas = 2)
+public class ESData {
     public static final String INDEX_NAME = "tm_data";
     public static final String ENTITY_ID = "entityId";
     public static final String CONTENT = "content";
@@ -50,15 +52,10 @@ public class TmData {
     private Long companyId;
     private Long entityId;
     private Byte dataType;
-    @ESField(termVector = "with_positions_offsets")
+    @Field()
     private String title;
-    @ESField(type = "keyword")
     private String iconUrl;
-    private ESZone zoneBelong;
-    private ESDoc docBelong;
-    @ESField(termVector = "with_positions_offsets")
     private String content = "";
-    private Owner owner;
     private List<Long> contributors;
     private List<Long> whiteDepartmentIdList;
     private List<Long> whitePositionIdList;
@@ -75,4 +72,8 @@ public class TmData {
     private Long refTimes = 0L;
     private Long downloadTimes = 0L;
     private Long childCommentQuantity = 0L;
+
+    public static void main(String[] args) {
+        Thread thread = new Thread();
+    }
 }

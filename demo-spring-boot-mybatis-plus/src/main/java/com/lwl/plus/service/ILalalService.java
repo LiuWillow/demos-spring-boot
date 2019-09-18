@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-07-01
  */
 public interface ILalalService extends IService<Lalal> {
-
+    void updateByCondition();
 }

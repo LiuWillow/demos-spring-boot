@@ -1,7 +1,7 @@
 package com.lwl.es.service;
 
 import com.lwl.es.em.ESDataType;
-import com.lwl.es.entity.search.TmData;
+import com.lwl.es.entity.search.ESData;
 import com.lwl.es.to.TmDataDeleteTO;
 import com.lwl.es.to.TmDataDirectUpdateTO;
 import com.lwl.es.to.TmDataInDirectUpdateTO;
@@ -25,16 +25,16 @@ public interface TmDataOperateService {
 
     /**
      * 插入一条数据
-     * @param tmData
+     * @param ESData
      */
-    boolean insert(TmData tmData);
+    boolean insert(ESData ESData);
 
     /**
      * 批量插入数据
-     * @param tmData
+     * @param ESData
      * @return 是否成功
      */
-    boolean insertBatch(List<TmData> tmData);
+    boolean insertBatch(List<ESData> ESData);
 
     /**
      * 根据entityId，公司id，数据类型删除对应的数据
@@ -44,9 +44,9 @@ public interface TmDataOperateService {
 
     /**
      * 更新或插入
-     * @param tmData
+     * @param ESData
      */
-    boolean upsert(TmData tmData);
+    boolean upsert(ESData ESData);
 
     /**
      * 根据es数据类型批量删除数据

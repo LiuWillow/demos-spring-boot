@@ -2,7 +2,7 @@ package com.lwl.es.service.impl;
 
 import com.google.common.collect.Lists;
 import com.lwl.es.em.ESDataType;
-import com.lwl.es.entity.search.TmData;
+import com.lwl.es.entity.search.ESData;
 import com.lwl.es.service.TmDataQueryService;
 import com.lwl.es.to.MoreConditionTO;
 import com.lwl.es.to.SearchTO;
@@ -116,7 +116,7 @@ public class TmDataQueryServiceImpl implements TmDataQueryService {
         SearchSourceBuilder sourceBuilder = generateSearchSourceBuilder(searchTO, keyword, companyId);
 
         SearchRequest dataRequest = new SearchRequest();
-        dataRequest.indices(TmData.INDEX_NAME);
+        dataRequest.indices(ESData.INDEX_NAME);
         dataRequest.source(sourceBuilder);
         dataRequest.routing(companyId.toString());
 
@@ -159,7 +159,7 @@ public class TmDataQueryServiceImpl implements TmDataQueryService {
         ////无论什么请求都要符合的查询条件
         BoolQueryBuilder baseQueryBuilder = generateBaseQueryBuilder(keyword, companyId);
         if (!ESDataType.ALL.getTypeId().equals(searchTO.getDataType())) {
-            baseQueryBuilder.must(QueryBuilders.termQuery(TmData.DATA_TYPE, searchTO.getDataType()));
+            baseQueryBuilder.must(QueryBuilders.termQuery(ESData.DATA_TYPE, searchTO.getDataType()));
         }
 
         //注入高级查询条件
@@ -186,8 +186,8 @@ public class TmDataQueryServiceImpl implements TmDataQueryService {
 
     private void highlightSetting(SearchSourceBuilder sourceBuilder) {
         HighlightBuilder highlightBuilder = new HighlightBuilder();
-        highlightBuilder.field(TmData.TITLE, FRAGMENT_SIZE, FRAGMENT_NUMBER).preTags(HIGHLIGHT_PRE_TAG).postTags(HIGHLIGHT_POST_TAG);
-        highlightBuilder.field(TmData.CONTENT, FRAGMENT_SIZE, FRAGMENT_NUMBER).preTags(HIGHLIGHT_PRE_TAG).postTags(HIGHLIGHT_POST_TAG);
+        highlightBuilder.field(ESData.TITLE, FRAGMENT_SIZE, FRAGMENT_NUMBER).preTags(HIGHLIGHT_PRE_TAG).postTags(HIGHLIGHT_POST_TAG);
+        highlightBuilder.field(ESData.CONTENT, FRAGMENT_SIZE, FRAGMENT_NUMBER).preTags(HIGHLIGHT_PRE_TAG).postTags(HIGHLIGHT_POST_TAG);
         sourceBuilder.highlighter(highlightBuilder);
     }
 
@@ -217,14 +217,14 @@ public class TmDataQueryServiceImpl implements TmDataQueryService {
         List<Byte> firstTypeList = Lists.newArrayList(ESDataType.DOC.getTypeId(), ESDataType.COMMENT.getTypeId(),
                 ESDataType.APPENDIX.getTypeId());
         zoneIdBuilder.should(QueryBuilders.boolQuery()
-                .must(QueryBuilders.termsQuery(TmData.DATA_TYPE, firstTypeList))
-                .must(QueryBuilders.termsQuery(TmData.ZONE_BELONG_ID, zoneIds)));
+                .must(QueryBuilders.termsQuery(ESData.DATA_TYPE, firstTypeList))
+                .must(QueryBuilders.termsQuery(ESData.ZONE_BELONG_ID, zoneIds)));
 
         List<Byte> secondTypeList = Lists.newArrayList(ESDataType.ZONE.getTypeId(), ESDataType.MANUAL.getTypeId(),
                 ESDataType.USER.getTypeId());
         zoneIdBuilder.should(QueryBuilders.boolQuery()
-                .must(QueryBuilders.termsQuery(TmData.DATA_TYPE, secondTypeList))
-                .must(QueryBuilders.termsQuery(TmData.ENTITY_ID, zoneIds)));
+                .must(QueryBuilders.termsQuery(ESData.DATA_TYPE, secondTypeList))
+                .must(QueryBuilders.termsQuery(ESData.ENTITY_ID, zoneIds)));
 
         baseQueryBuilder.must(zoneIdBuilder);
     }
@@ -232,12 +232,12 @@ public class TmDataQueryServiceImpl implements TmDataQueryService {
     private void injectDateCondition(BoolQueryBuilder baseQueryBuilder, Date begin, Date end) {
         BoolQueryBuilder dateQuery = QueryBuilders.boolQuery();
         if (Objects.nonNull(begin)) {
-            dateQuery.must(QueryBuilders.rangeQuery(TmData.DATA_CREATE_TIME).gte(begin.getTime()));
-            dateQuery.must(QueryBuilders.rangeQuery(TmData.DATA_UPDATE_TIME).gte(begin.getTime()));
+            dateQuery.must(QueryBuilders.rangeQuery(ESData.DATA_CREATE_TIME).gte(begin.getTime()));
+            dateQuery.must(QueryBuilders.rangeQuery(ESData.DATA_UPDATE_TIME).gte(begin.getTime()));
         }
         if (Objects.nonNull(end)) {
-            dateQuery.must(QueryBuilders.rangeQuery(TmData.DATA_CREATE_TIME).lte(end.getTime()));
-            dateQuery.must(QueryBuilders.rangeQuery(TmData.DATA_UPDATE_TIME).lte(end.getTime()));
+            dateQuery.must(QueryBuilders.rangeQuery(ESData.DATA_CREATE_TIME).lte(end.getTime()));
+            dateQuery.must(QueryBuilders.rangeQuery(ESData.DATA_UPDATE_TIME).lte(end.getTime()));
         }
         baseQueryBuilder.must(dateQuery);
     }
@@ -251,14 +251,14 @@ public class TmDataQueryServiceImpl implements TmDataQueryService {
         //文档、手册匹配贡献者，空间、个人空间、评论、文件都匹配创建者
         List<Byte> firstTypeList = Lists.newArrayList(ESDataType.DOC.getTypeId(), ESDataType.MANUAL.getTypeId());
         contributorBuilder.should(QueryBuilders.boolQuery()
-                .must(QueryBuilders.termsQuery(TmData.DATA_TYPE, firstTypeList))
-                .must(QueryBuilders.termsQuery(TmData.CONTRIBUTORS, contributors)));
+                .must(QueryBuilders.termsQuery(ESData.DATA_TYPE, firstTypeList))
+                .must(QueryBuilders.termsQuery(ESData.CONTRIBUTORS, contributors)));
 
         List<Byte> secondTypeList = Lists.newArrayList(ESDataType.ZONE.getTypeId(), ESDataType.USER.getTypeId(),
                 ESDataType.COMMENT.getTypeId(), ESDataType.APPENDIX.getTypeId());
         contributorBuilder.should(QueryBuilders.boolQuery()
-                .must(QueryBuilders.termsQuery(TmData.DATA_TYPE, secondTypeList))
-                .must(QueryBuilders.termsQuery(TmData.CREATOR_ID, contributors)));
+                .must(QueryBuilders.termsQuery(ESData.DATA_TYPE, secondTypeList))
+                .must(QueryBuilders.termsQuery(ESData.CREATOR_ID, contributors)));
 
         baseQueryBuilder.must(contributorBuilder);
     }
@@ -267,30 +267,30 @@ public class TmDataQueryServiceImpl implements TmDataQueryService {
                                           List<Long> positionIdList, List<Long> userGroupIds, Long loginUserId) {
         BoolQueryBuilder whiteIdQueryBuilder = QueryBuilders.boolQuery();
         if (!CollectionUtils.isEmpty(departmentIds)) {
-            departmentIds.forEach(departmentId -> whiteIdQueryBuilder.should(QueryBuilders.termQuery(TmData.WHITE_DEPARTMENT_ID_LIST, departmentId)));
+            departmentIds.forEach(departmentId -> whiteIdQueryBuilder.should(QueryBuilders.termQuery(ESData.WHITE_DEPARTMENT_ID_LIST, departmentId)));
         } else {
             log.warn("当前用户 {} 没有部门信息", loginUserId);
         }
         if (!CollectionUtils.isEmpty(positionIdList)) {
-            positionIdList.forEach(positionId -> whiteIdQueryBuilder.should(QueryBuilders.termQuery(TmData.WHITE_POSITION_ID_LIST, positionId)));
+            positionIdList.forEach(positionId -> whiteIdQueryBuilder.should(QueryBuilders.termQuery(ESData.WHITE_POSITION_ID_LIST, positionId)));
         } else {
             log.warn("当前用户 {} 没有职位信息", loginUserId);
         }
         if (!CollectionUtils.isEmpty(userGroupIds)) {
-            userGroupIds.forEach(userGroupId -> whiteIdQueryBuilder.should(QueryBuilders.termQuery(TmData.WHITE_USER_GROUP_ID_LIST, userGroupId)));
+            userGroupIds.forEach(userGroupId -> whiteIdQueryBuilder.should(QueryBuilders.termQuery(ESData.WHITE_USER_GROUP_ID_LIST, userGroupId)));
         } else {
             log.warn("当前用户 {} 没有用户组信息", loginUserId);
         }
-        whiteIdQueryBuilder.should(QueryBuilders.termQuery(TmData.WHITE_USER_ID_LIST, loginUserId));
+        whiteIdQueryBuilder.should(QueryBuilders.termQuery(ESData.WHITE_USER_ID_LIST, loginUserId));
 
         baseQueryBuilder.must(whiteIdQueryBuilder);
     }
 
     private BoolQueryBuilder generateBaseQueryBuilder(String keyword, Long companyId) {
         return QueryBuilders.boolQuery()
-                .must(QueryBuilders.termQuery(TmData.COMPANY_ID, companyId))
+                .must(QueryBuilders.termQuery(ESData.COMPANY_ID, companyId))
                 .must(QueryBuilders.boolQuery()
-                        .should(QueryBuilders.matchQuery(TmData.TITLE, keyword).boost(2))
-                        .should(QueryBuilders.matchQuery(TmData.CONTENT, keyword).boost(1)));
+                        .should(QueryBuilders.matchQuery(ESData.TITLE, keyword).boost(2))
+                        .should(QueryBuilders.matchQuery(ESData.CONTENT, keyword).boost(1)));
     }
 }

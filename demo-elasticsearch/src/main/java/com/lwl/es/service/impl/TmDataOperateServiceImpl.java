@@ -3,7 +3,7 @@ package com.lwl.es.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.lwl.es.em.ESDataType;
 import com.lwl.es.entity.search.ESIndex;
-import com.lwl.es.entity.search.TmData;
+import com.lwl.es.entity.search.ESData;
 import com.lwl.es.service.TmDataOperateService;
 import com.lwl.es.service.UpdateStrategy;
 import com.lwl.es.to.TmDataDeleteTO;
@@ -56,7 +56,7 @@ public class TmDataOperateServiceImpl implements TmDataOperateService {
     private Map<String, UpdateStrategy> updateStrategies;
 
     @Override
-    public boolean insertBatch(List<TmData> testDataList) {
+    public boolean insertBatch(List<ESData> testDataList) {
         if (CollectionUtils.isEmpty(testDataList)) {
             log.warn("es要插入的数据列表为空");
             return true;
@@ -65,7 +65,7 @@ public class TmDataOperateServiceImpl implements TmDataOperateService {
         log.warn("es要插入的数据列表长度为{}", testDataList.size());
 
         //插入的时候指定路由为companyId
-        testDataList.forEach(tmData -> request.add(new IndexRequest(TmData.INDEX_NAME)
+        testDataList.forEach(tmData -> request.add(new IndexRequest(ESData.INDEX_NAME)
                 .source(JSON.toJSONString(tmData), XContentType.JSON)
                 .routing(tmData.getCompanyId().toString())));
         try {
@@ -93,11 +93,11 @@ public class TmDataOperateServiceImpl implements TmDataOperateService {
             return true;
         }
         log.info("es要删除的TO为：{}", JSON.toJSONString(deleteTO));
-        DeleteByQueryRequest request = new DeleteByQueryRequest(TmData.INDEX_NAME);
+        DeleteByQueryRequest request = new DeleteByQueryRequest(ESData.INDEX_NAME);
         request.setRouting(deleteTO.getCompanyId().toString());
-        request.setQuery(QueryBuilders.boolQuery().must(QueryBuilders.termQuery(TmData.ENTITY_ID, deleteTO.getEntityId()))
-                .must(QueryBuilders.termQuery(TmData.COMPANY_ID, deleteTO.getCompanyId()))
-                .must(QueryBuilders.termQuery(TmData.DATA_TYPE, deleteTO.getDataType())));
+        request.setQuery(QueryBuilders.boolQuery().must(QueryBuilders.termQuery(ESData.ENTITY_ID, deleteTO.getEntityId()))
+                .must(QueryBuilders.termQuery(ESData.COMPANY_ID, deleteTO.getCompanyId()))
+                .must(QueryBuilders.termQuery(ESData.DATA_TYPE, deleteTO.getDataType())));
         try {
             BulkByScrollResponse response = client.deleteByQuery(request, RequestOptions.DEFAULT);
             List<BulkItemResponse.Failure> bulkFailures = response.getBulkFailures();
@@ -116,24 +116,24 @@ public class TmDataOperateServiceImpl implements TmDataOperateService {
     }
 
     @Override
-    public boolean upsert(TmData tmData) {
-        log.info("进入upsert方法，请求参数为：{}", JSON.toJSONString(tmData));
+    public boolean upsert(ESData ESData) {
+        log.info("进入upsert方法，请求参数为：{}", JSON.toJSONString(ESData));
         TmDataDeleteTO deleteTO = new TmDataDeleteTO();
-        deleteTO.setCompanyId(tmData.getCompanyId());
-        deleteTO.setEntityId(tmData.getEntityId());
+        deleteTO.setCompanyId(ESData.getCompanyId());
+        deleteTO.setEntityId(ESData.getEntityId());
         boolean deleted = delete(deleteTO);
         if (!deleted) {
             return false;
         }
-        return insert(tmData);
+        return insert(ESData);
     }
 
     @Override
     public boolean deleteBatchByType(ESDataType dataType, Long companyId) {
         log.info("进入根据类型批量删除方法，要删除的类型为：{}，要删除的公司id为：{}", dataType.getTypeDesc(), companyId);
-        DeleteByQueryRequest request = new DeleteByQueryRequest(TmData.INDEX_NAME);
-        request.setQuery(QueryBuilders.boolQuery().must(QueryBuilders.termQuery(TmData.DATA_TYPE, dataType.getTypeId()))
-                .must(QueryBuilders.termQuery(TmData.COMPANY_ID, companyId)));
+        DeleteByQueryRequest request = new DeleteByQueryRequest(ESData.INDEX_NAME);
+        request.setQuery(QueryBuilders.boolQuery().must(QueryBuilders.termQuery(ESData.DATA_TYPE, dataType.getTypeId()))
+                .must(QueryBuilders.termQuery(ESData.COMPANY_ID, companyId)));
         try {
             BulkByScrollResponse response = client.deleteByQuery(request, RequestOptions.DEFAULT);
             List<BulkItemResponse.Failure> bulkFailures = response.getBulkFailures();
@@ -154,13 +154,13 @@ public class TmDataOperateServiceImpl implements TmDataOperateService {
     @Override
     public boolean updateByQuery(TmDataUpdateTO updateTO) {
         log.info("进入updateByQuery方法，参数为：{}", JSON.toJSONString(updateTO));
-        UpdateByQueryRequest request = new UpdateByQueryRequest(TmData.INDEX_NAME);
+        UpdateByQueryRequest request = new UpdateByQueryRequest(ESData.INDEX_NAME);
         Map<String, Object> modifyFields = updateTO.getModifyFields();
         Date current = new Date();
-        modifyFields.put(TmData.DATA_UPDATE_TIME, current);
+        modifyFields.put(ESData.DATA_UPDATE_TIME, current);
 
         request.setRouting(updateTO.getCompanyId().toString());
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(TmData.COMPANY_ID,
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(ESData.COMPANY_ID,
                 updateTO.getCompanyId()));
 
         Map<String, Object> queryFields = updateTO.getQueryFields();
@@ -197,54 +197,54 @@ public class TmDataOperateServiceImpl implements TmDataOperateService {
     @Override
     public boolean updateTmDirectByQuery(TmDataDirectUpdateTO updateTO) {
         Map<String, Object> simpleQueryMap = new HashMap<>();
-        simpleQueryMap.put(TmData.COMPANY_ID, updateTO.getCompanyId());
+        simpleQueryMap.put(ESData.COMPANY_ID, updateTO.getCompanyId());
         Byte dataType = updateTO.getDataType();
-        simpleQueryMap.put(TmData.DATA_TYPE, dataType);
-        simpleQueryMap.put(TmData.ENTITY_ID, updateTO.getEntityId());
+        simpleQueryMap.put(ESData.DATA_TYPE, dataType);
+        simpleQueryMap.put(ESData.ENTITY_ID, updateTO.getEntityId());
 
         Map<String, Object> simpleFieldMap = new HashMap<>();
         if (!StringUtils.isEmpty(updateTO.getIconUrl())) {
-            simpleFieldMap.put(TmData.ICON_URL, updateTO.getIconUrl());
+            simpleFieldMap.put(ESData.ICON_URL, updateTO.getIconUrl());
         }
         if (!StringUtils.isEmpty(updateTO.getContent())) {
-            simpleFieldMap.put(TmData.CONTENT, updateTO.getContent());
+            simpleFieldMap.put(ESData.CONTENT, updateTO.getContent());
         }
         if (!CollectionUtils.isEmpty(updateTO.getContributors())) {
-            simpleFieldMap.put(TmData.CONTRIBUTORS, updateTO.getContributors());
+            simpleFieldMap.put(ESData.CONTRIBUTORS, updateTO.getContributors());
         }
         if (Objects.nonNull(updateTO.getFlagExpert())) {
-            simpleFieldMap.put(TmData.FLAG_EXPERT, updateTO.getFlagExpert());
+            simpleFieldMap.put(ESData.FLAG_EXPERT, updateTO.getFlagExpert());
         }
-        simpleFieldMap.put(TmData.SOURCE_UPDATE_TIME, updateTO.getSourceUpdateTime());
+        simpleFieldMap.put(ESData.SOURCE_UPDATE_TIME, updateTO.getSourceUpdateTime());
         if (Objects.nonNull(updateTO.getWhiteDepartmentIdList())) {
-            simpleFieldMap.put(TmData.WHITE_DEPARTMENT_ID_LIST, updateTO.getWhiteDepartmentIdList());
+            simpleFieldMap.put(ESData.WHITE_DEPARTMENT_ID_LIST, updateTO.getWhiteDepartmentIdList());
         }
         if (Objects.nonNull(updateTO.getWhitePositionIdList())) {
-            simpleFieldMap.put(TmData.WHITE_POSITION_ID_LIST, updateTO.getWhitePositionIdList());
+            simpleFieldMap.put(ESData.WHITE_POSITION_ID_LIST, updateTO.getWhitePositionIdList());
         }
         if (Objects.nonNull(updateTO.getWhiteUserGroupIdList())) {
-            simpleFieldMap.put(TmData.WHITE_USER_GROUP_ID_LIST, updateTO.getWhiteUserGroupIdList());
+            simpleFieldMap.put(ESData.WHITE_USER_GROUP_ID_LIST, updateTO.getWhiteUserGroupIdList());
         }
         if (Objects.nonNull(updateTO.getWhiteUserIdList())) {
-            simpleFieldMap.put(TmData.WHITE_USER_ID_LIST, updateTO.getWhiteUserIdList());
+            simpleFieldMap.put(ESData.WHITE_USER_ID_LIST, updateTO.getWhiteUserIdList());
         }
         if (Objects.nonNull(updateTO.getPraiseNum())) {
-            simpleFieldMap.put(TmData.PRAISE_NUM, updateTO.getPraiseNum());
+            simpleFieldMap.put(ESData.PRAISE_NUM, updateTO.getPraiseNum());
         }
         if (Objects.nonNull(updateTO.getReadNum())) {
-            simpleFieldMap.put(TmData.READ_NUM, updateTO.getReadNum());
+            simpleFieldMap.put(ESData.READ_NUM, updateTO.getReadNum());
         }
         if (Objects.nonNull(updateTO.getFavoriteNum())) {
-            simpleFieldMap.put(TmData.FAVORITE_NUM, updateTO.getFavoriteNum());
+            simpleFieldMap.put(ESData.FAVORITE_NUM, updateTO.getFavoriteNum());
         }
         if (Objects.nonNull(updateTO.getRefTimes())) {
-            simpleFieldMap.put(TmData.REF_TIMES, updateTO.getRefTimes());
+            simpleFieldMap.put(ESData.REF_TIMES, updateTO.getRefTimes());
         }
         if (Objects.nonNull(updateTO.getDownloadTimes())) {
-            simpleFieldMap.put(TmData.DOWNLOAD_TIMES, updateTO.getDownloadTimes());
+            simpleFieldMap.put(ESData.DOWNLOAD_TIMES, updateTO.getDownloadTimes());
         }
         if (Objects.nonNull(updateTO.getChildCommentQuantity())) {
-            simpleFieldMap.put(TmData.CHILD_COMMENT_QUANTITY, updateTO.getChildCommentQuantity());
+            simpleFieldMap.put(ESData.CHILD_COMMENT_QUANTITY, updateTO.getChildCommentQuantity());
         }
 
         TmDataUpdateTO tmDataUpdateTO = new TmDataUpdateTO();
@@ -257,7 +257,7 @@ public class TmDataOperateServiceImpl implements TmDataOperateService {
     @Override
     public boolean updateTmInDirectByQuery(TmDataInDirectUpdateTO updateTO) {
         Map<String, Object> queryMap = new HashMap<>();
-        queryMap.put(TmData.COMPANY_ID, updateTO.getCompanyId());
+        queryMap.put(ESData.COMPANY_ID, updateTO.getCompanyId());
         Map<String, Object> fieldMap = new HashMap<>();
         UpdateStrategy updateStrategy = updateStrategies.get(updateTO.getUpdateType().getStrategy());
         updateStrategy.generateUpdateMap(updateTO, queryMap, fieldMap);
@@ -298,12 +298,12 @@ public class TmDataOperateServiceImpl implements TmDataOperateService {
     }
 
     @Override
-    public boolean insert(TmData tmData) {
-        log.info("进入插入es数据方法，参数为：{}", JSON.toJSONString(tmData));
-        IndexRequest request = new IndexRequest(TmData.INDEX_NAME);
-        request.source(JSON.toJSONString(tmData), XContentType.JSON);
+    public boolean insert(ESData ESData) {
+        log.info("进入插入es数据方法，参数为：{}", JSON.toJSONString(ESData));
+        IndexRequest request = new IndexRequest(ESData.INDEX_NAME);
+        request.source(JSON.toJSONString(ESData), XContentType.JSON);
         //指定路由为公司id
-        request.routing(tmData.getCompanyId().toString());
+        request.routing(ESData.getCompanyId().toString());
         try {
             IndexResponse response = client.index(request, RequestOptions.DEFAULT);
             return RestStatus.CREATED.equals(response.status());

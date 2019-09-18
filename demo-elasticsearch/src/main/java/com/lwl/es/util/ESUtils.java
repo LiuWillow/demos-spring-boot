@@ -80,7 +80,11 @@ public class ESUtils {
                     Field highlightField = clazz.getDeclaredField(key);
                     highlightField.setAccessible(true);
                     String highlightString = fragments[0].string();
-                    highlightField.set(obj, highlightString);
+                    StringBuilder highLightStringBuilder = new StringBuilder();
+                    for (Text fragment : fragments) {
+                        highLightStringBuilder.append(fragment.string()).append("... ");
+                    }
+                    highlightField.set(obj, highLightStringBuilder.toString());
                 } catch (NoSuchFieldException e) {
                     log.error("转换es hit，字段反射时没有找到对应名称的字段", e);
                 } catch (IllegalAccessException e) {
