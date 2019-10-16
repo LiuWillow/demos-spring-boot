@@ -24,6 +24,7 @@
         <module>demo-websocket</module>
         <module>demo-elasticsearch</module>
         <module>demo-elasticsearch-spring</module>
+        <module>demo-spring-boot-design-patterns</module>
     </modules>
     <packaging>pom</packaging>
 
