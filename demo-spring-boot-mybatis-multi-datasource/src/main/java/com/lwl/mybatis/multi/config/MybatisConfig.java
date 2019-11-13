@@ -3,6 +3,7 @@ package com.lwl.mybatis.multi.config;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @AutoConfigureAfter({DatasourceConfig.class})
+@MapperScan("com.lwl.mybatis.multi.mapper")
 public class MybatisConfig {
     @Bean
     public SqlSessionFactory sqlSessionFactory(@Autowired DynamicDataSource dataSource) throws Exception {

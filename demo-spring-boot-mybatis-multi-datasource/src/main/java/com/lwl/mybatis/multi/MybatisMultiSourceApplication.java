@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2019/7/2 14:50
  */
 @SpringBootApplication
-@MapperScan("com.lwl.mybatis.multi.mapper")
 public class MybatisMultiSourceApplication {
     public static void main(String[] args) {
         SpringApplication.run(MybatisMultiSourceApplication.class, args);
