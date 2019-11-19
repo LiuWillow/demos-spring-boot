@@ -25,6 +25,7 @@
         <module>demo-elasticsearch-spring</module>
         <module>demo-spring-boot-design-patterns</module>
         <module>demo-spring-boot-myabtis-plus-shardingsphere</module>
+        <module>demo-rocketmq</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -11,5 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @MapperScan("com.lwl.plus.mapper")
 public class MybatisPlusApplication {
+    public static void main(String[] args) {
 
+    }
 }
