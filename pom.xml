@@ -86,11 +86,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Finchley.RELEASE</version>
-                <type>pom</type>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-releasetrain</artifactId>
+                <version>Lovelace-SR14</version>
                 <scope>import</scope>
+                <type>pom</type>
             </dependency>
 
             <dependency>
