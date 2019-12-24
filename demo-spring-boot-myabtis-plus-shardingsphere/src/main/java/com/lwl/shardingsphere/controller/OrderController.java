@@ -3,11 +3,10 @@ package com.lwl.shardingsphere.controller;
 import com.lwl.shardingsphere.entity.Order;
 import com.lwl.shardingsphere.service.OrderService;
 import com.lwl.shardingsphere.vo.Response;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * author liuweilong
@@ -16,12 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/order")
-public class OrderController {
+@Slf4j
+public class OrderController implements InitializingBean {
     @Autowired
     private OrderService orderService;
-    @PostMapping
+
+    @PostMapping("shit")
     public Response<?> insert(@RequestBody Order order){
         orderService.insert(order);
         return Response.success();
+    }
+
+    @GetMapping("laji")
+    public Response<?> laji(){
+        return Response.success();
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        log.info("------sdfdf-----");
     }
 }

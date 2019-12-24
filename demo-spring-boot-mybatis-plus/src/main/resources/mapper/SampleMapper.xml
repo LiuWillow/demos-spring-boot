@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwl.plus.mapper.SampleMapper">
+
+    <insert id="insertBatch">
+        insert into t_sample (id, age) values
+        <foreach collection="list" separator="," item="sample">
+            (#{sample.id}, #{sample.age})
+        </foreach>
+    </insert>
+    <select id="pageByAge" resultType="com.lwl.plus.entity.Sample">
+        select * from t_sample where age &gt;= #{queryTO.ageLeft}
+    </select>
+
+    <select id="pageByAgeXml" resultType="com.lwl.plus.entity.Sample">
+        select * from t_sample where age &gt;= #{ageLeft}
+    </select>
+</mapper>

@@ -1,6 +1,10 @@
 package com.lwl.plus.entity;
 
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -16,15 +20,11 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Lalal implements Serializable {
-
+@TableName("t_sample")
+public class Sample {
     private static final long serialVersionUID = 1L;
 
-    private Integer idlalal;
-
-    private String name;
-
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
     private Integer age;
-
-
 }

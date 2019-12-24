@@ -1,4 +1,4 @@
-package com.lwl.plus;
+package com.lwl.plus.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
