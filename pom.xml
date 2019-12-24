@@ -19,6 +19,7 @@
         <module>demo-wx-template</module>
         <module>demo-apache-common-pool</module>
         <module>demo-spring-boot-mybatis-plus</module>
+        <module>demo-spring-boot-mybatis</module>
         <module>demo-spring-boot-mybatis-multi-datasource</module>
         <module>demo-websocket</module>
         <module>demo-elasticsearch</module>
