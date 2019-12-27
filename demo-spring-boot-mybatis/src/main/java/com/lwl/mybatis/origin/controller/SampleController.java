@@ -1,7 +1,7 @@
 package com.lwl.mybatis.origin.controller;
 
 import com.lwl.mybatis.origin.entity.Sample;
-import com.lwl.mybatis.origin.mapper.SampleMapper;
+import com.lwl.mybatis.origin.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sample")
 public class SampleController {
     @Autowired
-    private SampleMapper sampleMapper;
+    private SampleService sampleService;
 
     @GetMapping("{id}")
-    public Sample getById(@PathVariable("id") Long id){
-        return sampleMapper.findById(id);
+    public Sample updateAndGet(@PathVariable("id") Long id){
+        return sampleService.updateAndGet(id);
     }
 }

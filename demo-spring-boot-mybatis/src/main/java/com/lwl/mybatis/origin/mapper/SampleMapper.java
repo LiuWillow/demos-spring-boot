@@ -2,6 +2,7 @@ package com.lwl.mybatis.origin.mapper;
 
 import com.lwl.mybatis.origin.entity.Sample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -18,4 +19,11 @@ public interface SampleMapper{
      * @return
      */
     Sample findById(@Param("id") Long id);
+
+    /**
+     * 根据id随便更新一下
+     * @param id
+     */
+//    @Transactional
+    void updateById(Long id);
 }
