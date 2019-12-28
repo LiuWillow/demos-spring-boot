@@ -27,6 +27,7 @@ public class SampleServiceImpl implements SampleService{
      * @return
      */
     @Override
+    @Transactional
     public Sample updateAndGet(Long id){
         sampleMapper.updateById(id);
         return sampleMapper.findById(id);

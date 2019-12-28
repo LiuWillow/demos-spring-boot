@@ -3,6 +3,7 @@ package com.lwl.mybatis.origin;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * author liuweilong
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("com.lwl.mybatis.origin.mapper")
+@EnableAsync
 public class MybatisApplication {
     public static void main(String[] args) {
         SpringApplication.run(MybatisApplication.class, args);
