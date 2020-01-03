@@ -1,8 +1,11 @@
 package com.lwl.mybatis.origin.service;
 
 import com.lwl.mybatis.origin.entity.Sample;
+import com.lwl.mybatis.origin.event.SampleFinishedEvent;
 import com.lwl.mybatis.origin.mapper.SampleMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,9 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
  * desc
  */
 @Service
+@Slf4j
 public class SampleServiceImpl implements SampleService{
     @Autowired
     private SampleMapper sampleMapper;
+    @Autowired
+    private ApplicationEventPublisher publisher;
 
     @Override
     public Sample getById(Long id){
@@ -30,6 +36,10 @@ public class SampleServiceImpl implements SampleService{
     @Transactional
     public Sample updateAndGet(Long id){
         sampleMapper.updateById(id);
-        return sampleMapper.findById(id);
+        Sample sample = sampleMapper.findById(id);
+        SampleFinishedEvent sampleFinishedEvent = new SampleFinishedEvent(this);
+        sampleFinishedEvent.setMessage(sample.toString());
+        publisher.publishEvent(sampleFinishedEvent);
+        return sample;
     }
 }
