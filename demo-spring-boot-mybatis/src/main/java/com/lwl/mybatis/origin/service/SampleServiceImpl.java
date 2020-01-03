@@ -37,7 +37,7 @@ public class SampleServiceImpl implements SampleService{
     public Sample updateAndGet(Long id){
         sampleMapper.updateById(id);
         Sample sample = sampleMapper.findById(id);
-        SampleFinishedEvent sampleFinishedEvent = new SampleFinishedEvent(this);
+        SampleFinishedEvent sampleFinishedEvent = new SampleFinishedEvent();
         sampleFinishedEvent.setMessage(sample.toString());
         publisher.publishEvent(sampleFinishedEvent);
         return sample;

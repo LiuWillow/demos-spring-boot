@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationEvent;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SampleFinishedEvent extends ApplicationEvent {
+public class SampleFinishedEvent {
     /**
      * 消息
      */
@@ -21,7 +21,4 @@ public class SampleFinishedEvent extends ApplicationEvent {
      *
      * @param source the object on which the event initially occurred (never {@code null})
      */
-    public SampleFinishedEvent(Object source) {
-        super(source);
-    }
 }
