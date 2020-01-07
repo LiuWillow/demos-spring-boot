@@ -54,11 +54,6 @@ public class SampleXxlJob {
         return ReturnT.SUCCESS;
     }
 
-
-    public static void main(String[] args) {
-        LocalDateTime localDateTime = LocalDateTime.parse("2020-01-01 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        System.out.println(localDateTime);
-    }
 //    /**
 //     * 2、分片广播任务
 //     */
