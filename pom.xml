@@ -27,6 +27,8 @@
         <module>demo-spring-boot-design-patterns</module>
         <module>demo-spring-boot-myabtis-plus-shardingsphere</module>
         <module>demo-rocketmq</module>
+        <module>demo-spring-boot-xxljob-admin</module>
+        <module>demo-spring-boot-xxljob-client</module>
     </modules>
     <packaging>pom</packaging>
 

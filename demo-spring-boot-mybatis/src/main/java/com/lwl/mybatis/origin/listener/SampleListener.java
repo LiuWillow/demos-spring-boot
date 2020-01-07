@@ -16,6 +16,11 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Component
 public class SampleListener {
 
+    /**
+     * 事务提交成功的时候回调该方法，最好是异步处理
+     * @param event
+     * @throws Exception
+     */
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleAuthChange(SampleFinishedEvent event) throws Exception{
         log.info("事务提交成功监听事件：{}", JSON.toJSONString(event));
