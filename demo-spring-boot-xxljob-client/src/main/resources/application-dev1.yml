@@ -1,0 +1,15 @@
+logging:
+  config: classpath:logback.xml
+server:
+  port: 8088
+xxl:
+  job:
+    accessToken: ''
+    admin:
+      addresses: http://localhost:8888/xxl-job-admin
+    executor:
+      appname: xxl-client
+      ip:
+      logpath: ./log/jobhandler
+      logretentiondays: 20
+      port: 9998

@@ -114,11 +114,11 @@
                 <version>1.1.16</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>RELEASE</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.github.pagehelper</groupId>-->
+<!--                <artifactId>pagehelper-spring-boot-starter</artifactId>-->
+<!--                <version>RELEASE</version>-->
+<!--            </dependency>-->
 
             <dependency>
                 <groupId>net.logstash.logback</groupId>
