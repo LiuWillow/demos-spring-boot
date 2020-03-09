@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationEvent;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SampleFinishedEvent {
+public class TransactionSampleFinishedEvent {
     /**
      * 消息
      */
