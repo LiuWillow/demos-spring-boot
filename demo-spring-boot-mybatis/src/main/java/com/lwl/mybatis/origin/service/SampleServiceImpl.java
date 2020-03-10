@@ -39,7 +39,6 @@ public class SampleServiceImpl implements SampleService {
     @Override
     @Transactional
     public Sample updateAndGet(Long id) {
-//        TransactionSynchronizationManager.registerSynchronization(new MySynchronization());
         sampleMapper.updateById(id);
         Sample sample = sampleMapper.findById(id);
         SimpleEvent simpleEvent = new SimpleEvent(this);

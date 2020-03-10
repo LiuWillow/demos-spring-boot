@@ -4,6 +4,9 @@ import com.lwl.shardingsphere.entity.Order;
 import com.lwl.shardingsphere.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * author liuweilong
@@ -12,10 +15,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrderServiceImpl implements OrderService {
-    @Autowired
+    @Resource
     private OrderMapper orderMapper;
+
     @Override
+    @Transactional
     public void insert(Order order) {
+        orderMapper.insert(order);
+        order.setCompanyId(order.getCompanyId()+1);
+        order.setUserId(order.getUserId()+1);
         orderMapper.insert(order);
     }
 }
