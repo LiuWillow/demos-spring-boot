@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/order")
 @Slf4j
-public class OrderController implements InitializingBean {
+public class OrderController {
     @Autowired
     private OrderService orderService;
 
@@ -26,13 +26,10 @@ public class OrderController implements InitializingBean {
         return Response.success();
     }
 
-    @GetMapping("laji")
-    public Response<?> laji(){
-        return Response.success();
+    @GetMapping("{id}")
+    public Response<Order> select(@PathVariable("id") Long id){
+        Order order = orderService.selectById(id);
+        return Response.success(order);
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        log.info("------sdfdf-----");
-    }
 }

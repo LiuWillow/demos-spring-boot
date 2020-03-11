@@ -1,8 +1,12 @@
 package com.lwl.shardingsphere.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lwl.shardingsphere.entity.Order;
 import com.lwl.shardingsphere.mapper.OrderMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +18,7 @@ import javax.annotation.Resource;
  * desc
  */
 @Service
+@Slf4j
 public class OrderServiceImpl implements OrderService {
     @Resource
     private OrderMapper orderMapper;
@@ -25,5 +30,14 @@ public class OrderServiceImpl implements OrderService {
         order.setCompanyId(order.getCompanyId()+1);
         order.setUserId(order.getUserId()+1);
         orderMapper.insert(order);
+        Order selectedOrder = orderMapper.selectOne(new LambdaQueryWrapper<Order>()
+                .eq(Order::getCompanyId, order.getCompanyId()).last("limit 1"));
+        log.info("insert方法查出来的order:[{}]", selectedOrder);
+    }
+
+    @Override
+    public Order selectById(Long userId) {
+        return orderMapper.selectOne(new LambdaQueryWrapper<Order>()
+                .eq(Order::getUserId, userId).last("limit 1"));
     }
 }

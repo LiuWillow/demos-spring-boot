@@ -9,4 +9,6 @@ import com.lwl.shardingsphere.entity.Order;
  */
 public interface OrderService {
     void insert(Order order);
+
+    Order selectById(Long id);
 }
