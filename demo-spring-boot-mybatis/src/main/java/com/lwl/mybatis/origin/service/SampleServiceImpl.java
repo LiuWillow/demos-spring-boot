@@ -1,6 +1,5 @@
 package com.lwl.mybatis.origin.service;
 
-import com.lwl.mybatis.origin.MySynchronization;
 import com.lwl.mybatis.origin.entity.Sample;
 import com.lwl.mybatis.origin.event.SimpleEvent;
 import com.lwl.mybatis.origin.event.TransactionSampleFinishedEvent;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 /**
  * author liuweilong
@@ -49,5 +47,10 @@ public class SampleServiceImpl implements SampleService {
         transactionSampleFinishedEvent.setMessage(sample.toString());
         publisher.publishEvent(transactionSampleFinishedEvent);
         return sample;
+    }
+
+    @Transactional
+    public void sample(){
+        System.out.println("sample");
     }
 }
