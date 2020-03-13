@@ -6,6 +6,7 @@ import com.lwl.mybatis.origin.service.SampleService;
 import com.lwl.mybatis.origin.service.SampleServiceImpl;
 import com.lwl.mybatis.origin.service.ShitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,8 @@ public class SampleController {
     private SampleServiceImpl sampleService1;
     @Resource
     private ShitService shitService;
+
+
 
     @GetMapping("{id}")
     public Sample updateAndGet(@PathVariable("id") Long id){

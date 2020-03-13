@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
  * date 2020/03/11 23:17
  * desc
  */
-@Component
-@Aspect
+//@Component
+//@Aspect
 @Slf4j
 public class ControllerAspect {
     @Pointcut("execution(public * com.lwl.mybatis.origin.controller.*.*(..))")

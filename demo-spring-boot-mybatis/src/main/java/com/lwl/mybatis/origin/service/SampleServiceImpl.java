@@ -6,9 +6,13 @@ import com.lwl.mybatis.origin.event.TransactionSampleFinishedEvent;
 import com.lwl.mybatis.origin.mapper.SampleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.Set;
 
 /**
  * author liuweilong
@@ -17,11 +21,26 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Slf4j
+@ConfigurationProperties(prefix="task.enabled")
 public class SampleServiceImpl implements SampleService {
     @Autowired
     private SampleMapper sampleMapper;
     @Autowired
     private ApplicationEventPublisher publisher;
+    @Resource
+    private ShitService shitService;
+
+    private Set<String> taskDomains; //必须提供get set
+
+    private Set<String> shitDomains;
+
+    public Set<String> getShitDomains() {
+        return shitDomains;
+    }
+
+    public void setShitDomains(Set<String> shitDomains) {
+        this.shitDomains = shitDomains;
+    }
 
     @Override
     public Sample getById(Long id) {
@@ -38,6 +57,9 @@ public class SampleServiceImpl implements SampleService {
     @Transactional
     public Sample updateAndGet(Long id) {
         sampleMapper.updateById(id);
+
+        shitService.haha();
+
         Sample sample = sampleMapper.findById(id);
         SimpleEvent simpleEvent = new SimpleEvent(this);
         simpleEvent.setMessage("简单事件");
@@ -52,5 +74,14 @@ public class SampleServiceImpl implements SampleService {
     @Transactional
     public void sample(){
         System.out.println("sample");
+    }
+
+
+    public Set<String> getTaskDomains() {
+        return taskDomains;
+    }
+
+    public void setTaskDomains(Set<String> taskDomains) {
+        this.taskDomains = taskDomains;
     }
 }

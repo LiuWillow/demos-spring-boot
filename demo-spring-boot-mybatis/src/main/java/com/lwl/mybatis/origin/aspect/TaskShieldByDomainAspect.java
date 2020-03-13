@@ -10,24 +10,19 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * author liuweilong
  * date 2020/03/11 23:17
  * desc
  */
-@Component
-@Aspect
+//@Component
+//@Aspect
 @Order(100)
 @Slf4j
 public class TaskShieldByDomainAspect {
-    @Value("${domain}")
-    private String domain;
-
+    @Value("#{'${domain}'.split(',')}")
     private Set<String> domains;
 
     @Pointcut("execution(public * com.lwl.mybatis.origin.service.SampleServiceImpl.*(..))")
@@ -42,10 +37,6 @@ public class TaskShieldByDomainAspect {
 
     @Around("finalCut()")
     public Object handle(ProceedingJoinPoint joinPoint) throws Throwable {
-        if (Objects.isNull(domains)) {
-            String[] split = domain.split(",");
-            domains = Arrays.stream(split).collect(Collectors.toSet());
-        }
         if (domains.contains(LoginInfoUtils.getDomain())) {
             return joinPoint.proceed(joinPoint.getArgs());
         }
