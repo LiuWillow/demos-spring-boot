@@ -17,4 +17,6 @@ public interface SampleService {
     Sample getById(Long id);
 
     Sample updateAndGet(Long id);
+
+    void tryOOM();
 }

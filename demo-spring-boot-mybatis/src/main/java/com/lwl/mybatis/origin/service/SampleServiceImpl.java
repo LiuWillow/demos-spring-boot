@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,7 +23,7 @@ import java.util.Set;
  */
 @Service
 @Slf4j
-@ConfigurationProperties(prefix="task.enabled")
+@ConfigurationProperties(prefix = "task.enabled")
 public class SampleServiceImpl implements SampleService {
     @Autowired
     private SampleMapper sampleMapper;
@@ -71,8 +73,19 @@ public class SampleServiceImpl implements SampleService {
         return sample;
     }
 
+    @Override
+    public void tryOOM() {
+        List<Sample> samples = new ArrayList<>();
+        for (long i = 0; i < Long.MAX_VALUE; i++) {
+            final Sample sample = new Sample();
+            sample.setId(i);
+            samples.add(sample);
+        }
+        System.out.println(samples);
+    }
+
     @Transactional
-    public void sample(){
+    public void sample() {
         System.out.println("sample");
     }
 

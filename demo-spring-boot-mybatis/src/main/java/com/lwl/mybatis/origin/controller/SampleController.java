@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -45,5 +47,16 @@ public class SampleController {
     @GetMapping("test/shit")
     public void testShit(Request<?> request){
         shitService.haha();
+    }
+
+    @GetMapping("oom")
+    public void oom(){
+        List<Sample> list = new ArrayList<>();
+        for (int i = 0; i < 1000000000; i++) {
+            Sample sample = new Sample();
+            sample.setAge(1);
+            list.add(sample);
+        }
+        System.out.println(list);
     }
 }
