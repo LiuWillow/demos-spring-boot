@@ -29,6 +29,7 @@
         <module>demo-rocketmq</module>
         <module>demo-spring-boot-xxljob-admin</module>
         <module>demo-spring-boot-xxljob-client</module>
+        <module>demo-quartz</module>
     </modules>
     <packaging>pom</packaging>
 
