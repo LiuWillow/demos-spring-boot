@@ -1,8 +1,6 @@
 package com.lwl.plus.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.lwl.plus.plugin.MyPageInterceptor;
-import org.apache.ibatis.plugin.Interceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,13 +19,4 @@ public class MybatisPlusConfig {
     public PaginationInterceptor paginationInterceptor(){
         return new PaginationInterceptor();
     }
-
-    /**
-     * 自定义的分页插件
-     * @return
-     */
-//    @Bean
-//    public Interceptor paginationInterceptor(){
-//        return new MyPageInterceptor();
-//    }
 }

@@ -23,7 +23,9 @@ public class RedissonUtils {
      * @param key
      * @param value
      */
-    public void set(String key, Object value) {
+    public void set(String key, Object value) throws InterruptedException {
+        RLock shit = redissonClient.getFairLock("shit");
+        shit.tryLock(111L, TimeUnit.SECONDS);
         RBucket<Object> bucket = redissonClient.getBucket(key);
         bucket.set(value);
     }

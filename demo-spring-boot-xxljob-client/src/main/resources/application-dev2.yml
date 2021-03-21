@@ -6,9 +6,9 @@ xxl:
   job:
     accessToken: ''
     admin:
-      addresses: http://localhost:8888/xxl-job-admin
+      addresses: http://localhost:8080
     executor:
-      appname: xxl-client
+      appname: testApp
       ip:
       logpath: ./log/jobhandler
       logretentiondays: 20

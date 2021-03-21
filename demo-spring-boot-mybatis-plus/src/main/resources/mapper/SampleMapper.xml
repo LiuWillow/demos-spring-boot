@@ -8,6 +8,7 @@
             (#{sample.id}, #{sample.age})
         </foreach>
     </insert>
+
     <select id="pageByAge" resultType="com.lwl.plus.entity.Sample">
         select * from t_sample where age &gt;= #{queryTO.ageLeft}
     </select>

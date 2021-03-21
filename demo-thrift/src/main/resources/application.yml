@@ -1,0 +1,6 @@
+server:
+  port: 9823
+thrift:
+  port: 8821
+  minWorkerThreads: 11
+  maxWorkerThreads: 11

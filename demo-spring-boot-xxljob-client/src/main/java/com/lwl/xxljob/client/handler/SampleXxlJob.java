@@ -1,24 +1,13 @@
 package com.lwl.xxljob.client.handler;
 
 import com.xxl.job.core.biz.model.ReturnT;
-import com.xxl.job.core.handler.IJobHandler;
 import com.xxl.job.core.handler.annotation.XxlJob;
-import com.xxl.job.core.log.XxlJobLogger;
-import com.xxl.job.core.util.ShardingUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.TimeUnit;
 
 /**
  * XxlJob开发示例（Bean模式）
@@ -33,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class SampleXxlJob {
+    private int i = 1;
     /**
      * 1、简单任务示例（Bean模式）
      */
@@ -45,7 +35,7 @@ public class SampleXxlJob {
             localDateTime = LocalDateTime.now();
         }
         try {
-            log.info("执行任务：{} 哈哈哈哈", localDateTime.getSecond());
+            log.info("执行任务：{} 哈哈哈哈", i++);
         } catch (Exception e) {
             log.error("执行任务异常", e);
             return ReturnT.FAIL;
