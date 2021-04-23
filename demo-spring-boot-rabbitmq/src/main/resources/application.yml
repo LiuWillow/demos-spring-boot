@@ -1,0 +1,27 @@
+server:
+  port: 9982
+spring:
+  rabbitmq:
+    addresses: localhost
+    password: 123
+    port: 5672
+    username: root
+    virtual-host: dev
+    publisher-confirms: true  #发布者确认，消息到了exchange
+    publisher-returns: true #没啥用
+    listener:
+      simple:
+#        acknowledge-mode: manual # 消费者手动ack
+        acknowledge-mode: auto # 消费者自动ack，如果要配合retry的话，就要用自动ack，消费失败后将消息放入死信队列，并进一步处理
+        concurrency: 2 # listener监听的最小线程数
+        max-concurrency: 5 # listener监听的最大线程数
+        prefetch: 5 # broker的缓冲区
+        retry:
+          enabled: true
+          max-attempts: 3
+        default-requeue-rejected: false
+      direct:
+        default-requeue-rejected: false
+
+    template:
+      mandatory: true # 理论上和publisher-returns一样，是消息到了broker但是没到queue的时候，会返回并回调returnCallback，然而publisher-returns似乎没啥用

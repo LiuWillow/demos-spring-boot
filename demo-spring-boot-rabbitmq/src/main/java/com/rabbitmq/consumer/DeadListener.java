@@ -14,14 +14,14 @@ import java.nio.charset.StandardCharsets;
 
 @Service
 @Slf4j
-public class Topic2Listener {
+public class DeadListener {
     @RabbitHandler
-    @RabbitListener(queues = TopicConfig.TOPIC_QUEUE2)
+    @RabbitListener(queues = DelayConfig.DEAD_QUEUE)
     public void handle(Message message, Channel channel) throws IOException {
         byte[] body = message.getBody();
         if (body != null && body.length > 0) {
             String json = new String(body, StandardCharsets.UTF_8);
-            log.info("topic2队列:{} 接收到消息: {}", TopicConfig.TOPIC_QUEUE2, json);
+            log.info("死信队列:{} 接收到消息: {}", DelayConfig.DEAD_QUEUE, json);
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         }
     }

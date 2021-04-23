@@ -24,6 +24,14 @@ public class QuartzTest {
         scheduler.scheduleJob(jobDetail2, trigger2);
         TimeUnit.SECONDS.sleep(2);
 
+//        scheduler.unscheduleJob(TriggerKey.triggerKey("trigger", "trigger1Group"));
+//
+//        JobDetail job3 = JobBuilder.newJob().withIdentity("job3", "job3Group").ofType(TestTask2.class).build();
+//        Trigger trigger = TriggerBuilder.newTrigger().withIdentity("trigger3", "trigger3Group")
+//                .withSchedule(SimpleScheduleBuilder.repeatSecondlyForever(15))
+//                .build();
+//        scheduler.scheduleJob(job3, trigger);
+
         scheduler.start();
     }
 }

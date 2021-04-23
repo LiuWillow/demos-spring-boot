@@ -20,17 +20,17 @@
         <module>demo-apache-common-pool</module>
         <module>demo-spring-boot-mybatis-plus</module>
         <module>demo-spring-boot-mybatis</module>
-        <module>demo-spring-boot-mybatis-multi-datasource</module>
         <module>demo-websocket</module>
         <module>demo-elasticsearch</module>
-        <module>demo-elasticsearch-spring</module>
         <module>demo-spring-boot-design-patterns</module>
         <module>demo-spring-boot-myabtis-plus-shardingsphere</module>
         <module>demo-rocketmq</module>
-        <module>demo-spring-boot-xxljob-admin</module>
         <module>demo-spring-boot-xxljob-client</module>
         <module>demo-thrift</module>
         <module>demo-quartz</module>
+        <module>demo-elastic-job</module>
+        <module>demo-powerjob</module>
+        <module>demo-akka</module>
     </modules>
     <packaging>pom</packaging>
 

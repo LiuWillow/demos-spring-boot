@@ -1,14 +1,14 @@
-package com.rabbitmq.sender;
+package com.rabbitmq.callback;
 
+import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.rabbit.support.CorrelationData;
 
 /**
  * @author lwl
  * @date 2019/4/18 15:25
  * @description
  */
-public class MyConfirmCallback implements RabbitTemplate.ConfirmCallback {
+public class ConfirmCallback implements RabbitTemplate.ConfirmCallback {
 
     @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {

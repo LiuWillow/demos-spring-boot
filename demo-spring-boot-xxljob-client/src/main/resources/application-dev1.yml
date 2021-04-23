@@ -6,7 +6,7 @@ xxl:
   job:
     accessToken: ''
     admin:
-      addresses: http://localhost:8080
+      addresses: http://localhost:8089/xxl-job-admin
     executor:
       appname: testApp
       ip:

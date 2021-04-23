@@ -1,17 +1,16 @@
 package com.lwl.plus.util;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
-import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author liuweilong
@@ -19,48 +18,42 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
  * @date 2019/7/1 17:24
  */
 public class MapperGenerator {
-    public static String scanner(String tip) {
-        Scanner scanner = new Scanner(System.in);
-        StringBuilder help = new StringBuilder();
-        help.append("请输入" + tip + "：");
-        System.out.println(help.toString());
-        if (scanner.hasNext()) {
-            String ipt = scanner.next();
-            if (StringUtils.isNotEmpty(ipt)) {
-                return ipt;
-            }
-        }
-        throw new MybatisPlusException("请输入正确的" + tip + "！");
-    }
 
     /**
+     * /extr/usr/xmgit/custom-service-refund/cs-refund-entity
      * RUN THIS
      */
     public static void main(String[] args) {
-        String ip = "localhost";
-        // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
-
-        // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        String projectPath = System.getProperty("user.dir");
-        String moduleName = "demo-spring-boot-mybatis-plus";
-        gc.setOutputDir(projectPath + "/" + moduleName + "/src/main/java");
-        gc.setAuthor("lwl");
+        //是否覆盖原代码
+        gc.setFileOverride(true);
+        //配置项目路径
+
+        String projectPath = "/Users/xmly/IdeaProjects/demos-spring-boot/demo-spring-boot-mybatis-plus";
+        //输出路径
+        gc.setOutputDir(projectPath + "/src/main/java");
+        gc.setAuthor("liuweilong");
         gc.setOpen(false);
+        //设置entity后缀
+        gc.setEntityName("%sPO");
+        gc.setMapperName("%sMapper");
+        gc.setXmlName("%sMapper");
+        //日期转换为java.util.Date
+        gc.setDateType(DateType.ONLY_DATE);
+
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://" + ip + ":3306/test_scheme?useUnicode=true&useSSL=false&characterEncoding=utf8");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setUrl("jdbc:mysql://localhost:3306/db?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("123456");
+        dsc.setPassword("123");
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-//        pc.setModuleName("demo-spring-boot-mybatis-plus");
         //生成的文件会再这个包下
         pc.setParent("com.lwl.plus");
         mpg.setPackageInfo(pc);
@@ -76,11 +69,11 @@ public class MapperGenerator {
         focList.add(new FileOutConfig("/templates/mapper.xml.ftl") {
             @Override
             public String outputFile(TableInfo tableInfo) {
-                // 自定义输入文件名称java\com\lwl\plus\mapper
-                return projectPath + "/" + moduleName + "/src/main/java/com/lwl/plus/mapper/xml"
-                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                return projectPath + "/src/main/resources/mapper"
+                        + "/" + tableInfo.getMapperName() + StringPool.DOT_XML;
             }
         });
+
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
         mpg.setTemplate(new TemplateConfig().setXml(null));
@@ -89,18 +82,21 @@ public class MapperGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-//        strategy.setSuperEntityClass("com.lwl.plus.samples.generator.common.BaseEntity");
         strategy.setEntityLombokModel(true);
+        strategy.setSuperServiceClass(null);
+        strategy.setSuperServiceImplClass(null);
 
-//        strategy.setSuperControllerClass("com.baomidou.mybatisplus.samples.generator.common.BaseController");
-//        strategy.setInclude(scanner("表名"));
-//        strategy.setSuperEntityColumns("id");
+        strategy.setRestControllerStyle(true);
+
+        //如果不配置，则生成db下所有的表
+        strategy.setInclude("t_test");
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
+        //生成实体名的时候自动删除表前缀
+        strategy.setTablePrefix("t_");
         mpg.setStrategy(strategy);
+
         // 选择 freemarker 引擎需要指定如下加，注意 pom 依赖必须有！
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
-
     }
 }

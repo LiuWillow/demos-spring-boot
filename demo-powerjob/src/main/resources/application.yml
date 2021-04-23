@@ -1,0 +1,9 @@
+# akka 工作端口，可选，默认 27777
+powerjob:
+  worker:
+    akka-port: 27777
+    app-name: demo-powerjob
+    server-address: localhost:7700
+    store-strategy: memory # 研究下disk
+    max-result-length: 4096 # 任务返回结果信息的最大值，超过这个长度的信息会被截断
+    max-appended-wf-context-length: 4096 # 单个任务追加的工作流上下文最大长度，超过会被丢弃

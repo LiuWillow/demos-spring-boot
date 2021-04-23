@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,18 +25,13 @@ public class XxlJobClientApplication {
 
     @GetMapping("ss")
     public void shit() {
-        List<Shit> list = new LinkedList<>();
-        for (int i = 0; i < 10000; i++) {
-            Shit e = new Shit();
-            e.setAa("sdf" + i);
-            e.setBb(i);
-            list.add(e);
-        }
+
     }
 
     @Data
-    public class Shit {
-        private String aa;
-        private Integer bb;
+    public class Test {
+        private Long id;
+        private Integer status;
+        private Date triggerTime;
     }
 }
